@@ -23,8 +23,8 @@ export const setAuthorization = (token: string | null) => {
 
   console.log('token', token);
 
-  const instance = configureAxios();
-  instance.defaults.headers.common.Authorization = token
+  const axiosInstance = configureAxios();
+  axiosInstance.defaults.headers.common.Authorization = token
     ? `Bearer ${token}`
     : '';
 };
