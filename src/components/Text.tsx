@@ -10,7 +10,7 @@ interface Props {
 const BText: React.FC<Props> = ({ style, numberOfLines, children }) => {
   const defaultStyle = Platform.select({
     ios: {
-      //   fontFamily: isLight ? 'NotoSansCJKkr-Light' : 'NotoSansCJKkr-Regular',
+      // fontFamily: isLight ? 'NotoSansCJKkr-Light' : 'NotoSansCJKkr-Regular',
     },
     android: {
       //   fontFamily: isLight ? 'NotoSansKR-Light' : 'NotoSansKR-Regular',
