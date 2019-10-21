@@ -1,26 +1,44 @@
-import { NavigationActions } from 'react-navigation';
-import { NavigationStackOptions } from 'react-navigation-stack';
+import {
+  StackActions,
+  NavigationActions,
+  NavigationDispatch,
+  NavigationParams,
+  NavigationNavigateAction,
+  NavigationContainerComponent,
+} from 'react-navigation';
 
-let navigator;
+let dispatch: NavigationDispatch;
 
-function setTopLevelNavigator(navigatorRef) {
-  navigator = navigatorRef;
+type ScreenName = 'Login' | 'Home';
+
+export function navigate(routeName: ScreenName, params?: NavigationParams) {
+  const action = NavigationActions.navigate({
+    routeName,
+    params,
+  });
+  dispatch(action);
 }
 
-function navigate(routeName, params) {
-  navigator.dispatch(
-    NavigationActions.navigate({
-      routeName,
-      params,
-    }),
-  );
+export function push(routeName: ScreenName, params?: NavigationParams) {
+  const action = StackActions.push({
+    routeName,
+    params,
+  });
+  dispatch(action);
 }
 
-function push(routeName, params) {
-  navigator.dispatch();
+export function replace(routeName: ScreenName, params?: NavigationParams) {
+  const action = StackActions.replace({
+    routeName,
+    params,
+  });
+  dispatch(action);
 }
 
-export default {
-  navigate,
-  setTopLevelNavigator,
-};
+export function dispatchNavigation(action: NavigationNavigateAction) {
+  dispatch(action);
+}
+
+export function registerAppContainer(container: NavigationContainerComponent) {
+  dispatch = container.dispatch;
+}

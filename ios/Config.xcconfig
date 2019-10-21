@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  booboo
+//
+//  Created by 한영수 on 21/10/2019.
+//  Copyright © 2019 Facebook. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include? "tmp.xcconfig"

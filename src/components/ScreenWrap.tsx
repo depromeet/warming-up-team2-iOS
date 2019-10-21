@@ -11,13 +11,10 @@ const InnerWrap = styled.View`
   background-color: #f6f9ff;
 `;
 
-const ScreenWrap: React.FC = ({
-  children,
-  forceInset,
-}: {
+const ScreenWrap: React.FC<{
   children: React.ReactElement;
   forceInset?: ForceInsetProp;
-}) => {
+}> = ({ children, forceInset }) => {
   return (
     <Wrap forceInset={forceInset}>
       <InnerWrap>{children}</InnerWrap>
