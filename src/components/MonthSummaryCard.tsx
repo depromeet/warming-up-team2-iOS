@@ -10,7 +10,7 @@ const Wrap = styled(Animated.View)<{ width: number }>`
 
 interface Props {
   item: any;
-  width: Animated.AnimatedInterpolation;
+  width: any;
 }
 
 const MonthSummaryCard: React.FC<Props> = ({ width, item }) => {

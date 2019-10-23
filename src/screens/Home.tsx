@@ -9,10 +9,10 @@ import {
   Fade,
 } from 'rn-placeholder';
 
-import { ScreenWrap, MonthSummaryCard } from 'components';
+import { ScreenWrap, Carousel } from 'components';
 
-const HEADER_EXPANDED_HEIGHT = 150;
-const HEADER_COLLAPSED_HEIGHT = 0;
+const HEADER_EXPANDED_HEIGHT = 128;
+const HEADER_COLLAPSED_HEIGHT = 90;
 
 const Wrap = styled.View`
   flex: 1;
@@ -41,7 +41,6 @@ const contentContainerStyle = {
 const HeaderView = styled(Animated.View)<{ height: number }>`
   align-items: center;
   justify-content: center;
-  padding: 20px;
   position: absolute;
   width: 100%;
   top: 0;
@@ -70,7 +69,7 @@ export const Home: NavigationStackScreenComponent = () => {
 
   const itemWidth = scrollY.interpolate({
     inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
-    outputRange: [280, 226, 0],
+    outputRange: [280, 226, HEADER_COLLAPSED_HEIGHT * (226 / 128)],
     extrapolate: 'clamp',
   });
 
@@ -78,7 +77,7 @@ export const Home: NavigationStackScreenComponent = () => {
     <ScreenWrap>
       <Wrap>
         <HeaderView style={{ height: headerHeight }}>
-          <MonthSummaryCard item="item" width={itemWidth} />
+          <Carousel datas={DUMMY} itemWidth={itemWidth} />
         </HeaderView>
         <FlatList
           contentContainerStyle={[
