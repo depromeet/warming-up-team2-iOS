@@ -11,11 +11,12 @@ import {
 
 import { ScreenWrap, Carousel } from 'components';
 
-const HEADER_EXPANDED_HEIGHT = 128;
+const HEADER_EXPANDED_HEIGHT = 142;
 const HEADER_COLLAPSED_HEIGHT = 90;
 
 const Wrap = styled.View`
   flex: 1;
+  background-color: white;
 `;
 
 const DUMMY = [
@@ -36,6 +37,7 @@ const DUMMY = [
 
 const contentContainerStyle = {
   padding: 24,
+  backgroundColor: 'white',
 };
 
 const HeaderView = styled(Animated.View)<{ height: number }>`
@@ -47,6 +49,7 @@ const HeaderView = styled(Animated.View)<{ height: number }>`
   left: 0;
   z-index: 100;
   background-color: white;
+  padding-bottom: 14px;
 `;
 
 const renderItems = () => {
@@ -62,8 +65,12 @@ export const Home: NavigationStackScreenComponent = () => {
   const scrollY = new Animated.Value(0);
 
   const headerHeight = scrollY.interpolate({
-    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
-    outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
+    inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    outputRange: [
+      HEADER_EXPANDED_HEIGHT * (280 / 226),
+      HEADER_EXPANDED_HEIGHT,
+      HEADER_COLLAPSED_HEIGHT,
+    ],
     extrapolate: 'clamp',
   });
 
