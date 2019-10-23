@@ -7,10 +7,15 @@ interface Props {
   numberOfLines?: number;
 }
 
-const BText: React.FC<Props> = ({ style, numberOfLines, children }) => {
+const BText: React.FC<Props> = ({
+  style,
+  numberOfLines,
+  children,
+  isLight,
+}) => {
   const defaultStyle = Platform.select({
     ios: {
-      // fontFamily: isLight ? 'NotoSansCJKkr-Light' : 'NotoSansCJKkr-Regular',
+      fontFamily: isLight ? 'NotoSansCJKkr-Light' : 'NotoSansCJKkr-Regular',
     },
     android: {
       //   fontFamily: isLight ? 'NotoSansKR-Light' : 'NotoSansKR-Regular',

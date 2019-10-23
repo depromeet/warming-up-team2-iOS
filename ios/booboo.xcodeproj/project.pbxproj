@@ -21,6 +21,9 @@
 		2DCD954D1E0B4F2C00145EB5 /* boobooTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* boobooTests.m */; };
 		DA453957235D6CC100B9F858 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA453954235D6CAC00B9F858 /* libReactNativeConfig.a */; };
 		DA45395A235D729600B9F858 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DA453959235D729600B9F858 /* Config.xcconfig */; };
+		DA7B28B42360A57C008C1BB7 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7B28AF2360A57C008C1BB7 /* NotoSansKR-Regular.otf */; };
+		DA7B28B52360A57C008C1BB7 /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7B28B22360A57C008C1BB7 /* NotoSansKR-Light.otf */; };
+		DA7B28B62360A57C008C1BB7 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7B28B32360A57C008C1BB7 /* NotoSansKR-Bold.otf */; };
 		F27825C01608F36FD555C834 /* libPods-boobooTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AE3FB9AC6A828EA17BA6330 /* libPods-boobooTests.a */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +85,9 @@
 		BE9C65D955FEE4BD63E1D402 /* Pods-booboo-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-booboo-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-booboo-tvOSTests/Pods-booboo-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA45394E235D6CAC00B9F858 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		DA453959235D729600B9F858 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		DA7B28AF2360A57C008C1BB7 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Regular.otf"; path = "Fonts/NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		DA7B28B22360A57C008C1BB7 /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Light.otf"; path = "Fonts/NotoSansKR-Light.otf"; sourceTree = "<group>"; };
+		DA7B28B32360A57C008C1BB7 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Bold.otf"; path = "Fonts/NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		DF0B7B25C92E921F3F21F2FB /* Pods-booboo-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-booboo-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-booboo-tvOSTests/Pods-booboo-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -194,6 +200,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DA7B28B32360A57C008C1BB7 /* NotoSansKR-Bold.otf */,
+				DA7B28B22360A57C008C1BB7 /* NotoSansKR-Light.otf */,
+				DA7B28AF2360A57C008C1BB7 /* NotoSansKR-Regular.otf */,
 				DA453959235D729600B9F858 /* Config.xcconfig */,
 				13B07FAE1A68108700A75B9A /* booboo */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -391,7 +400,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DA7B28B52360A57C008C1BB7 /* NotoSansKR-Light.otf in Resources */,
 				DA45395A235D729600B9F858 /* Config.xcconfig in Resources */,
+				DA7B28B42360A57C008C1BB7 /* NotoSansKR-Regular.otf in Resources */,
+				DA7B28B62360A57C008C1BB7 /* NotoSansKR-Bold.otf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
