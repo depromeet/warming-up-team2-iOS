@@ -9,18 +9,18 @@ import {
 
 const AppNavigator = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: mainScreenNavigationOptions,
-    },
     Login: {
       screen: LoginScren,
       navigationOptions: { header: null },
     },
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: mainScreenNavigationOptions,
+    },
   },
   {
     headerMode: 'screen',
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
     defaultNavigationOptions: {
       ...baseStackNavigationOptions,
     },

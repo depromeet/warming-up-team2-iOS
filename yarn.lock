@@ -956,10 +956,10 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
-"@react-native-seoul/kakao-login@^1.0.1-rc2":
-  version "1.0.1-rc2"
-  resolved "https://registry.yarnpkg.com/@react-native-seoul/kakao-login/-/kakao-login-1.0.1-rc2.tgz#b536e4656de49addfdf94c136b9320f81c9085f4"
-  integrity sha512-JDoy7/0Ei4DBbUVsehrD1mM7rFIzkT/lZMxOaQhrlXwoQEwi6JvMHTmvVIYBUX4bBVlg8nC24gZev5GGfNVkzQ==
+"@react-native-seoul/kakao-login@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@react-native-seoul/kakao-login/-/kakao-login-2.1.0.tgz#7142bf49b22d287fe68ecc947c84d8dce472aff4"
+  integrity sha512-GSNXh5qffoEboXqEd37b+Ks5ikmasBx2C6OdvA7JEre0SzPg5hDt6BDLsLOywJohgkmUuaRhZi9Dq/dQol4j9w==
   dependencies:
     dooboolab-welcome "^1.1.0"
 
