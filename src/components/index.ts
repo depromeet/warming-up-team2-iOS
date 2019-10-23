@@ -3,3 +3,4 @@ export { default as Touchable } from './Touchable';
 export { default as ScreenWrap } from './ScreenWrap';
 export { default as SingleLineTextInput } from './SingleLineTextInput';
 export { default as MultiLineTextInput } from './MultiLineTextInput';
+export { default as MonthSummaryCard } from './MonthSummaryCard';

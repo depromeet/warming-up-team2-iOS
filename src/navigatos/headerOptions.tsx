@@ -1,145 +1,86 @@
-// TODO: 네비게이션 헤더 옵션정의
+import React from 'react';
+import styled from 'styled-components/native';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 
-// import React from 'react';
-// import styled from 'styled-components/native';
+import { Touchable, Text } from 'components';
+import { IC_MYPAGE, IC_BACK } from 'libs/icons';
 
-// export const headerElementPadding = {
-//   paddingLeft: 16,
-//   paddingRight: 16,
-// };
+export const defaultHeaderStyle = {
+  backgroundColor: 'white',
+  elevation: 0,
+  borderBottomWidth: 0,
+};
 
-// export const defaultHeaderStyle = {
-//   height: 52,
-//   backgroundColor: 'white',
-//   borderBottomWidth: 1,
-//   borderBottomColor: '#f0f0f0',
-//   elevation: 0,
-// };
+export const defaultHeaderTitleStyle = {
+  fontSize: 18,
+  lineHeight: 24,
+  color: '#2c3744',
+  fontWeight: 'normal',
+};
 
-// export const defaultHeaderTitleStyle = {
-//   fontSize: 18,
-//   lineHeight: 24,
-//   color: '#2c3744',
-//   fontWeight: 'normal',
-// };
+const HeaderBackImage = styled.Image.attrs({ source: IC_BACK })``;
 
-// export const transparentHeaderStyle = {
-//   height: 52,
-//   borderBottomWidth: 0,
-// };
+export const baseStackNavigationOptions = {
+  headerStyle: defaultHeaderStyle,
+  headerBackImage: () => <HeaderBackImage />,
+  headerLeftContainerStyle: {
+    paddingLeft: 20,
+  },
+  headerRightContainerStyle: {
+    paddingRight: 20,
+  },
+};
 
-// export const noHeaderStyle = {
-//   height: 0,
-// };
+const RowWrapper = styled.View`
+  flex-direction: row;
+`;
 
-// export const noLineHeaderStyle = {
-//   ...defaultHeaderStyle,
-//   // borderBottomWidth: 0,
-//   borderBottomColor: 'transparent',
-// };
+const Wrapper = styled.View``;
 
-// export const userMainHeaderStyle = {
-//   ...noLineHeaderStyle,
-//   backgroundColor: '#ffdb00',
-// };
+const HeaderTitleButton = styled(Touchable).attrs({
+  hitSlop: { top: 5, bottom: 5, left: 5, right: 5 },
+})<{ isRight: boolean }>`
+  margin-left: ${({ isRight }) => (isRight ? 15 : 0)}px;
+`;
 
-// export const defaultBottomTabStyle = {
-//   height: 50,
-//   backgroundColor: '#fdfdfd',
-//   borderTopWidth: 1,
-//   borderTopColor: '#f0f0f0',
-// };
+const MyPageButton = styled(Touchable).attrs({
+  hitSlop: { top: 10, right: 10, bottom: 10, left: 10 },
+})``;
 
-// export const baseStackConfig = {
-//   headerLayoutPreset: 'center',
-//   headerBackTitleVisible: false,
-// };
+const MyPageImage = styled.Image.attrs({ source: IC_MYPAGE })`
+  width: 32px;
+  height: 32px;
+`;
 
-// export const baseStackNavigationOptions = {
-//   headerStyle: defaultHeaderStyle,
-//   headerTitleStyle: defaultHeaderTitleStyle,
-//   headerBackTitle: null,
-//   // headerBackImage: () => <HeaderBackImage />,
-// };
+const HeaerText = styled(Text)<{ isFocused: boolean }>`
+  font-size: 16px;
+  color: ${({ isFocused }) => (isFocused ? '#0a0a0a' : '#b1b1b1')};
+  font-weight: bold;
+`;
 
-// export const noHeaderNavigationOptions = {
-//   headerStyle: noHeaderStyle,
-//   headerTransparent: true,
-// };
-
-// export const userMainNavigationOptions = {
-//   headerStyle: userMainHeaderStyle,
-//   // headerTransparent: true,
-// };
-
-// export const transparentHeaderNavigationOptions = {
-//   headerStyle: transparentHeaderStyle,
-//   headerTransparent: true,
-// };
-
-// export const hideTabBarNavigationOptions = ({ navigation }) => {
-//   const isMain = navigation.state.index === 0;
-//   return {
-//     tabBarVisible: isMain,
-//   };
-// };
-
-// export const eventMainNavigationOptions = ({ navigation }) => ({
-//   headerTitle: <BiImage />,
-//   headerLeft: (
-//     <View style={{ flexDirection: 'row' }}>
-//       <HeaderBookmarkButton
-//         onPress={() =>
-//           tryLogin(navigation, true, () => navigation.push('EventBookmark'))
-//         }
-//       />
-//       <HeaderAlarmContainer
-//         onPress={() =>
-//           tryLogin(navigation, true, () => navigation.push('UserMessage'))
-//         }
-//       />
-//     </View>
-//   ),
-//   headerRight: (
-//     <View style={{ flexDirection: 'row' }}>
-//       <HeaderSearchButton onPress={() => navigation.push('SearchMain')} />
-//       <HeaderMyButton onPress={() => navigation.push('UserMain')} />
-//     </View>
-//   ),
-// });
-
-// export const mainScreenNavigationOptions = initOptions => ({ navigation }) => ({
-//   ...initOptions,
-//   headerLeft: (
-//     <View style={{ flexDirection: 'row' }}>
-//       <HeaderCoinButton
-//         onPress={() =>
-//           tryLogin(navigation, true, () => navigation.push('UserCoin'))
-//         }
-//       />
-//       <HeaderAlarmContainer
-//         onPress={() =>
-//           tryLogin(navigation, true, () => navigation.push('UserMessage'))
-//         }
-//       />
-//     </View>
-//   ),
-//   headerRight: (
-//     <View style={{ flexDirection: 'row' }}>
-//       <HeaderSearchButton onPress={() => navigation.push('SearchMain')} />
-//       <HeaderMyButton onPress={() => navigation.push('UserMain')} />
-//     </View>
-//   ),
-// });
-
-// export const reviewMainNavigationOptions = mainScreenNavigationOptions({
-//   headerTitle: <BiImage />,
-// });
-// export const articleMainNavigationOptions = mainScreenNavigationOptions({
-//   title: '익명수다',
-//   headerStyle: noLineHeaderStyle,
-// });
-// export const channelMainNavigationOptions = mainScreenNavigationOptions({
-//   // title: '채팅',
-//   headerStyle: noLineHeaderStyle,
-// });
+export const mainScreenNavigationOptions = ({
+  navigation,
+}: NavigationStackScreenProps) => ({
+  headerLeft: (
+    <RowWrapper>
+      <HeaderTitleButton
+        isRight={false}
+        onPress={() => {
+          navigation.navigate('');
+        }}
+      >
+        <HeaerText isFocused>피드</HeaerText>
+      </HeaderTitleButton>
+      <HeaderTitleButton onPress={() => {}} isRight>
+        <HeaerText isFocused={false}>가계부</HeaerText>
+      </HeaderTitleButton>
+    </RowWrapper>
+  ),
+  headerRight: (
+    <Wrapper>
+      <MyPageButton onPress={() => {}}>
+        <MyPageImage />
+      </MyPageButton>
+    </Wrapper>
+  ),
+});
