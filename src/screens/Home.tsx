@@ -20,19 +20,12 @@ const Wrap = styled.View`
 `;
 
 const DUMMY = [
-  { title: '1' },
-  { title: '2' },
-  { title: '3' },
-  { title: '4' },
-  { title: '5' },
-  { title: '6' },
-  { title: '7' },
-  { title: '8' },
-  { title: '9' },
-  { title: '10' },
-  { title: '11' },
-  { title: '12' },
-  { title: '13' },
+  { month: '1월', expenditure: 100000, duration: '2019.10.01 - 2019.10.07' },
+  { month: '2월', expenditure: 200000, duration: '2019.11.01 - 2019.11.07' },
+  { month: '3월', expenditure: 300000, duration: '2019.12.01 - 2019.12.07' },
+  { month: '4월', expenditure: 400000, duration: '2019.10.01 - 2019.10.07' },
+  { month: '5월', expenditure: 500000, duration: '2019.10.01 - 2019.10.07' },
+  { month: '6월', expenditure: 600000, duration: '2019.10.01 - 2019.10.07' },
 ];
 
 const contentContainerStyle = {
@@ -41,6 +34,7 @@ const contentContainerStyle = {
 };
 
 const HeaderView = styled(Animated.View)<{ height: number }>`
+  margin-top: 45px;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -89,11 +83,11 @@ export const Home: NavigationStackScreenComponent = () => {
         <FlatList
           contentContainerStyle={[
             contentContainerStyle,
-            { paddingTop: HEADER_EXPANDED_HEIGHT + 20 },
+            { paddingTop: HEADER_EXPANDED_HEIGHT + 65 },
           ]}
           data={DUMMY}
           renderItem={renderItems}
-          keyExtractor={item => item.title}
+          keyExtractor={item => item.month}
           onScroll={Animated.event([
             {
               nativeEvent: {

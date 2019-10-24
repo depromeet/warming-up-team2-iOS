@@ -1,17 +1,19 @@
 import React from 'react';
-import { StyleProp, TextStyle, Platform, Text } from 'react-native';
+import { StyleProp, TextStyle, Platform, Animated } from 'react-native';
 
 interface Props {
   style?: StyleProp<TextStyle>;
   isLight?: boolean;
   numberOfLines?: number;
+  fontSize: Animated.AnimatedInterpolation;
 }
 
-const BText: React.FC<Props> = ({
+const AnimatedText: React.FC<Props> = ({
   style,
   numberOfLines,
   children,
   isLight,
+  fontSize = 10,
 }) => {
   const defaultStyle = Platform.select({
     ios: {
@@ -24,14 +26,14 @@ const BText: React.FC<Props> = ({
   });
 
   return (
-    <Text
+    <Animated.Text
       allowFontScaling={false}
-      style={[defaultStyle, style]}
+      style={[defaultStyle, style, { fontSize }]}
       numberOfLines={numberOfLines}
     >
       {children}
-    </Text>
+    </Animated.Text>
   );
 };
 
-export default BText;
+export default AnimatedText;

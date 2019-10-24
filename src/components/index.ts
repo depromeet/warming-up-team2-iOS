@@ -5,3 +5,4 @@ export { default as SingleLineTextInput } from './SingleLineTextInput';
 export { default as MultiLineTextInput } from './MultiLineTextInput';
 export { default as MonthSummaryCard } from './MonthSummaryCard';
 export { default as Carousel } from './Carousel';
+export { default as AnimtedText } from './AnimtedText';
