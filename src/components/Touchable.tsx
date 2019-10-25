@@ -3,13 +3,14 @@ import {
   NativeScrollRectangle,
   TouchableOpacity,
   StyleProp,
-  ViewStyle,
 } from 'react-native';
-import Touchable from 'react-native-platform-touchable';
+import Touchable, {
+  PlatformTouchableProps,
+} from 'react-native-platform-touchable';
 
 interface Props {
   onPress: () => void;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<PlatformTouchableProps>;
   hitSlop?: NativeScrollRectangle;
   noEffect?: boolean;
 }
@@ -19,7 +20,7 @@ export const BTouchable: React.FC<Props> = ({
   onPress,
   style,
   hitSlop,
-  noEffect,
+  noEffect = false,
 }) => {
   if (noEffect) {
     return (

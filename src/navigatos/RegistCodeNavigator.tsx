@@ -11,10 +11,10 @@ const RegistCodeNavigator = createStackNavigator(
     },
     Home: {
       screen: HomeNavigator,
+      navigationOptions: { header: null },
     },
   },
   {
-    headerMode: 'screen',
     defaultNavigationOptions: {
       ...baseStackNavigationOptions,
     },

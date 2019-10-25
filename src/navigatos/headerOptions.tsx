@@ -11,6 +11,12 @@ export const defaultHeaderStyle = {
   borderBottomWidth: 0,
 };
 
+export const mainHeaderStyle = {
+  elevation: 0,
+  borderBottomWidth: 0,
+  marginTop: 20,
+};
+
 export const defaultHeaderTitleStyle = {
   fontSize: 18,
   lineHeight: 24,
@@ -40,7 +46,7 @@ const Wrapper = styled.View``;
 const HeaderTitleButton = styled(Touchable).attrs({
   hitSlop: { top: 5, bottom: 5, left: 5, right: 5 },
 })<{ isRight: boolean }>`
-  margin-left: ${({ isRight }) => (isRight ? 15 : 0)}px;
+  margin-left: ${({ isRight }) => (isRight ? 32 : 0)}px;
 `;
 
 const MyPageButton = styled(Touchable).attrs({
@@ -61,6 +67,7 @@ const HeaerText = styled(Text)<{ isFocused: boolean }>`
 export const mainScreenNavigationOptions = ({
   navigation,
 }: NavigationStackScreenProps) => ({
+  headerStyle: mainHeaderStyle,
   headerLeft: (
     <RowWrapper>
       <HeaderTitleButton

@@ -4,11 +4,12 @@ import SafeAreaView, { ForceInsetProp } from 'react-native-safe-area-view';
 
 const Wrap = styled(SafeAreaView)`
   flex: 1;
+  background-color: white;
 `;
 
 const InnerWrap = styled.View`
   flex: 1;
-  background-color: #f6f9ff;
+  background-color: white;
 `;
 
 const ScreenWrap: React.FC<{

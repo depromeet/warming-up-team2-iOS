@@ -15,6 +15,7 @@ const BText: React.FC<Props> = ({
 }) => {
   const defaultStyle = Platform.select({
     ios: {
+      color: '#191919',
       fontFamily: isLight ? 'NotoSansCJKkr-Light' : 'NotoSansCJKkr-Regular',
     },
     android: {
