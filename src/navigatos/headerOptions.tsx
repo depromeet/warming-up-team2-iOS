@@ -48,12 +48,12 @@ const MyPageButton = styled(Touchable).attrs({
 })``;
 
 const MyPageImage = styled.Image.attrs({ source: IC_MYPAGE })`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 `;
 
 const HeaerText = styled(Text)<{ isFocused: boolean }>`
-  font-size: 16px;
+  font-size: 20px;
   color: ${({ isFocused }) => (isFocused ? '#0a0a0a' : '#b1b1b1')};
   font-weight: bold;
 `;

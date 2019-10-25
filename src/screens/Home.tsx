@@ -11,7 +11,7 @@ import {
 
 import { ScreenWrap, Carousel } from 'components';
 
-const HEADER_EXPANDED_HEIGHT = 187;
+const HEADER_EXPANDED_HEIGHT = 207;
 const HEADER_COLLAPSED_HEIGHT = 160;
 
 const Wrap = styled.View`
@@ -60,7 +60,7 @@ export const Home: NavigationStackScreenComponent = () => {
   const headerHeight = scrollY.interpolate({
     inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
     outputRange: [
-      HEADER_EXPANDED_HEIGHT * (280 / 226),
+      HEADER_EXPANDED_HEIGHT * (280 / 260),
       HEADER_EXPANDED_HEIGHT,
       HEADER_COLLAPSED_HEIGHT,
     ],
@@ -69,7 +69,7 @@ export const Home: NavigationStackScreenComponent = () => {
 
   const itemWidth = scrollY.interpolate({
     inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
-    outputRange: [280, 226, (HEADER_COLLAPSED_HEIGHT - 45) * (226 / 128)],
+    outputRange: [280, 260, (HEADER_COLLAPSED_HEIGHT - 45) * (260 / 128)],
     extrapolate: 'clamp',
   });
 

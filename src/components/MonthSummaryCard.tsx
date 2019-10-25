@@ -53,31 +53,31 @@ const CalendarImage = styled.Image.attrs({ source: IC_CALENDAR })``;
 
 const MonthSummaryCard: React.FC<Props> = ({ width, item }) => {
   const monthSize = width.interpolate({
-    inputRange: [90 * (226 / 128), 226, 280],
+    inputRange: [90 * (260 / 128), 260, 280],
     outputRange: [9, 12, 15],
     extrapolate: 'clamp',
   });
 
   const expenditureSize = width.interpolate({
-    inputRange: [90 * (226 / 128), 226, 280],
-    outputRange: [9, 18, 22],
+    inputRange: [90 * (260 / 128), 260, 280],
+    outputRange: [9, 20, 24],
     extrapolate: 'clamp',
   });
 
   const durationSize = width.interpolate({
-    inputRange: [90 * (226 / 128), 226, 280],
-    outputRange: [5, 10, 13],
+    inputRange: [90 * (260 / 128), 260, 280],
+    outputRange: [5, 11, 14],
     extrapolate: 'clamp',
   });
 
   const monthLineHeight = width.interpolate({
-    inputRange: [90 * (226 / 128), 226, 280],
+    inputRange: [90 * (260 / 128), 260, 280],
     outputRange: [24, 24, 28],
     extrapolate: 'clamp',
   });
 
   const lineHeight = width.interpolate({
-    inputRange: [90 * (226 / 128), 226, 280],
+    inputRange: [90 * (260 / 128), 260, 280],
     outputRange: [13, 24, 28],
     extrapolate: 'clamp',
   });
