@@ -11,8 +11,8 @@ import {
 
 import { ScreenWrap, Carousel } from 'components';
 
-const HEADER_EXPANDED_HEIGHT = 142;
-const HEADER_COLLAPSED_HEIGHT = 90;
+const HEADER_EXPANDED_HEIGHT = 187;
+const HEADER_COLLAPSED_HEIGHT = 160;
 
 const Wrap = styled.View`
   flex: 1;
@@ -34,7 +34,6 @@ const contentContainerStyle = {
 };
 
 const HeaderView = styled(Animated.View)<{ height: number }>`
-  margin-top: 45px;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -42,8 +41,8 @@ const HeaderView = styled(Animated.View)<{ height: number }>`
   top: 0;
   left: 0;
   z-index: 100;
+  padding: 45px 0 15px;
   background-color: white;
-  padding-bottom: 14px;
 `;
 
 const renderItems = () => {
@@ -70,7 +69,7 @@ export const Home: NavigationStackScreenComponent = () => {
 
   const itemWidth = scrollY.interpolate({
     inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
-    outputRange: [280, 226, HEADER_COLLAPSED_HEIGHT * (226 / 128)],
+    outputRange: [280, 226, (HEADER_COLLAPSED_HEIGHT - 45) * (226 / 128)],
     extrapolate: 'clamp',
   });
 
@@ -83,7 +82,7 @@ export const Home: NavigationStackScreenComponent = () => {
         <FlatList
           contentContainerStyle={[
             contentContainerStyle,
-            { paddingTop: HEADER_EXPANDED_HEIGHT + 65 },
+            { paddingTop: HEADER_EXPANDED_HEIGHT + 20 },
           ]}
           data={DUMMY}
           renderItem={renderItems}

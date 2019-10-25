@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleProp, TextStyle, Platform, Animated } from 'react-native';
+import { Platform, Animated } from 'react-native';
 
+// TODO: any코드 고치기
 interface Props {
-  style?: StyleProp<TextStyle>;
+  style?: any;
   isLight?: boolean;
   numberOfLines?: number;
-  fontSize: Animated.AnimatedInterpolation;
 }
 
 const AnimatedText: React.FC<Props> = ({
@@ -13,7 +13,6 @@ const AnimatedText: React.FC<Props> = ({
   numberOfLines,
   children,
   isLight,
-  fontSize = 10,
 }) => {
   const defaultStyle = Platform.select({
     ios: {
@@ -28,7 +27,7 @@ const AnimatedText: React.FC<Props> = ({
   return (
     <Animated.Text
       allowFontScaling={false}
-      style={[defaultStyle, style, { fontSize }]}
+      style={[defaultStyle, style]}
       numberOfLines={numberOfLines}
     >
       {children}
