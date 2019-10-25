@@ -9,7 +9,7 @@ import {
 
 let dispatch: NavigationDispatch;
 
-type ScreenName = 'Login' | 'Home';
+type ScreenName = 'Login' | 'Main' | 'Home' | 'RegistCode';
 
 export function navigate(routeName: ScreenName, params?: NavigationParams) {
   const action = NavigationActions.navigate({
@@ -40,5 +40,6 @@ export function dispatchNavigation(action: NavigationNavigateAction) {
 }
 
 export function registerAppContainer(container: NavigationContainerComponent) {
+  console.log('registerAppContainer');
   dispatch = container.dispatch;
 }

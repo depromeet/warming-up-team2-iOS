@@ -7,6 +7,7 @@ module.exports = {
         root: ['./src'],
         alias: {
           icons: './assets/icons',
+          imgs: './assets/imgs',
         },
         extensions: ['.ios.js', '.android.js', '.js', '.json', '.ts', '.tsx'],
       },
