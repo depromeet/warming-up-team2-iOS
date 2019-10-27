@@ -2,9 +2,7 @@ import React from 'react';
 import { Animated } from 'react-native';
 import styled from 'styled-components/native';
 
-import { IC_CALENDAR } from 'libs/icons';
 import AnimtedText from './AnimtedText';
-import Touchable from './Touchable';
 
 const Wrap = styled(Animated.View)<{ width: number }>`
   height: 100%;
@@ -47,26 +45,22 @@ const DurationText = styled(AnimtedText)`
 
 const TextView = styled.View``;
 
-const CalendarButton = styled(Touchable)``;
-
-const CalendarImage = styled.Image.attrs({ source: IC_CALENDAR })``;
-
 const MonthSummaryCard: React.FC<Props> = ({ width, item }) => {
   const monthSize = width.interpolate({
     inputRange: [90 * (260 / 128), 260, 280],
-    outputRange: [9, 12, 15],
+    outputRange: [11, 12, 15],
     extrapolate: 'clamp',
   });
 
   const expenditureSize = width.interpolate({
     inputRange: [90 * (260 / 128), 260, 280],
-    outputRange: [9, 20, 24],
+    outputRange: [12, 20, 24],
     extrapolate: 'clamp',
   });
 
   const durationSize = width.interpolate({
     inputRange: [90 * (260 / 128), 260, 280],
-    outputRange: [5, 11, 14],
+    outputRange: [8, 11, 14],
     extrapolate: 'clamp',
   });
 
@@ -102,9 +96,6 @@ const MonthSummaryCard: React.FC<Props> = ({ width, item }) => {
         <DurationText style={{ fontSize: durationSize }}>
           {item.duration}
         </DurationText>
-        <CalendarButton onPress={() => {}}>
-          <CalendarImage />
-        </CalendarButton>
       </DurationView>
     </Wrap>
   );

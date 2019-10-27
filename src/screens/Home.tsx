@@ -1,104 +1,146 @@
 import React from 'react';
-import { FlatList, Animated } from 'react-native';
 import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Fade,
-} from 'rn-placeholder';
+import { TabView, SceneMap, NavigationState } from 'react-native-tab-view';
 
-import { ScreenWrap, Carousel } from 'components';
+import { DEVICE_WIDTH } from 'libs/styleUtils';
+import { ScreenWrap, Touchable } from 'components';
+import { IC_MYPAGE, IC_EDIT } from 'libs/icons';
+import AccountBook from './AccountBook';
+import Feed from './Feed';
+import Mypage from './Mypage';
 
-const HEADER_EXPANDED_HEIGHT = 207;
-const HEADER_COLLAPSED_HEIGHT = 160;
-
-const Wrap = styled.View`
-  flex: 1;
-  background-color: white;
+const TabViewWrapper = styled.View`
+  flex-direction: row;
+  padding-top: 33px;
+  padding-left: 20px;
+  height: 100px;
 `;
 
-const DUMMY = [
-  { month: '1월', expenditure: 100000, duration: '2019.10.01 - 2019.10.07' },
-  { month: '2월', expenditure: 200000, duration: '2019.11.01 - 2019.11.07' },
-  { month: '3월', expenditure: 300000, duration: '2019.12.01 - 2019.12.07' },
-  { month: '4월', expenditure: 400000, duration: '2019.10.01 - 2019.10.07' },
-  { month: '5월', expenditure: 500000, duration: '2019.10.01 - 2019.10.07' },
-  { month: '6월', expenditure: 600000, duration: '2019.10.01 - 2019.10.07' },
-];
+const TabButton = styled(Touchable)<{ right: boolean }>`
+  margin-left: ${({ right }) => (right ? 32 : 0)}px;
+`;
 
-const contentContainerStyle = {
-  padding: 24,
-  backgroundColor: 'white',
-};
-
-const HeaderView = styled(Animated.View)<{ height: number }>`
-  align-items: center;
-  justify-content: center;
+const MypageButton = styled(Touchable)`
+  top: 18px;
+  right: 20px;
   position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  padding: 45px 0 15px;
-  background-color: white;
 `;
 
-const renderItems = () => {
-  return (
-    <Placeholder Animation={Fade} Left={PlaceholderMedia}>
-      <PlaceholderLine width={40} />
-      <PlaceholderLine width={60} />
-    </Placeholder>
-  );
-};
+const MyPageImage = styled.Image.attrs({ source: IC_MYPAGE })`
+  width: 40px;
+  height: 40px;
+`;
+
+const WriteButton = styled(Touchable)`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+  background-color: #ff7443;
+  justify-content: center;
+  align-items: center;
+`;
+
+const EditIcon = styled.Image.attrs({ source: IC_EDIT })`
+  width: 30px;
+  height: 30px;
+`;
 
 export const Home: NavigationStackScreenComponent = () => {
-  const scrollY = new Animated.Value(0);
+  const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
+  const routes = [
+    { key: 'feed', title: '피드' },
+    { key: 'accountBook', title: '가계부' },
+    { key: 'myPage', title: '마이페이지' },
+  ];
 
-  const headerHeight = scrollY.interpolate({
-    inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
-    outputRange: [
-      HEADER_EXPANDED_HEIGHT * (280 / 260),
-      HEADER_EXPANDED_HEIGHT,
-      HEADER_COLLAPSED_HEIGHT,
-    ],
-    extrapolate: 'clamp',
-  });
+  const renderTabBar = ({
+    navigationState,
+    position,
+  }: {
+    navigationState: NavigationState<{ key: string; title: string }>;
+    position: Animated.Node<number>;
+  }) => {
+    const inputRange = [-10, ...navigationState.routes.map((x, i) => i), 10];
 
-  const itemWidth = scrollY.interpolate({
-    inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
-    outputRange: [280, 260, (HEADER_COLLAPSED_HEIGHT - 45) * (260 / 128)],
-    extrapolate: 'clamp',
-  });
+    return (
+      <TabViewWrapper>
+        {navigationState.routes.map((route, i) => {
+          const color = Animated.color(
+            Animated.round(
+              Animated.interpolate(position, {
+                inputRange,
+                outputRange: inputRange.map(inputIndex =>
+                  inputIndex === i ? 0 : 192,
+                ),
+              }),
+            ),
+            Animated.round(
+              Animated.interpolate(position, {
+                inputRange,
+                outputRange: inputRange.map(inputIndex =>
+                  inputIndex === i ? 0 : 192,
+                ),
+              }),
+            ),
+            Animated.round(
+              Animated.interpolate(position, {
+                inputRange,
+                outputRange: inputRange.map(inputIndex =>
+                  inputIndex === i ? 0 : 192,
+                ),
+              }),
+            ),
+          );
+
+          if (i === 2) {
+            return (
+              <MypageButton onPress={() => setCurrentTabIndex(i)}>
+                <MyPageImage />
+              </MypageButton>
+            );
+          }
+
+          return (
+            <TabButton
+              onPress={() => setCurrentTabIndex(i)}
+              right={i === 1}
+              key={route.key}
+            >
+              <Animated.Text
+                style={{ color, fontSize: 20, fontWeight: 'bold' }}
+              >
+                {route.title}
+              </Animated.Text>
+            </TabButton>
+          );
+        })}
+      </TabViewWrapper>
+    );
+  };
 
   return (
     <ScreenWrap>
-      <Wrap>
-        <HeaderView style={{ height: headerHeight }}>
-          <Carousel datas={DUMMY} itemWidth={itemWidth} />
-        </HeaderView>
-        <FlatList
-          contentContainerStyle={[
-            contentContainerStyle,
-            { paddingTop: HEADER_EXPANDED_HEIGHT + 20 },
-          ]}
-          data={DUMMY}
-          renderItem={renderItems}
-          keyExtractor={item => item.month}
-          onScroll={Animated.event([
-            {
-              nativeEvent: {
-                contentOffset: {
-                  y: scrollY,
-                },
-              },
-            },
-          ])}
-          scrollEventThrottle={13}
-        />
-      </Wrap>
+      <TabView
+        navigationState={{ index: currentTabIndex, routes }}
+        renderScene={SceneMap({
+          feed: Feed,
+          accountBook: AccountBook,
+          myPage: Mypage,
+        })}
+        onIndexChange={index => setCurrentTabIndex(index)}
+        initialLayout={{ width: DEVICE_WIDTH }}
+        renderTabBar={renderTabBar}
+        swipeVelocityImpact={1}
+        springVelocityScale={4}
+      />
+      <WriteButton onPress={() => {}}>
+        <EditIcon />
+      </WriteButton>
     </ScreenWrap>
   );
 };

@@ -1,15 +1,12 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from 'screens/Home';
-import {
-  mainScreenNavigationOptions,
-  baseStackNavigationOptions,
-} from './headerOptions';
+import { baseStackNavigationOptions } from './headerOptions';
 
 const HomeNavigator = createStackNavigator(
   {
     Home: {
       screen: HomeScreen,
-      navigationOptions: mainScreenNavigationOptions,
+      navigationOptions: { header: null },
     },
   },
   {

@@ -11,7 +11,7 @@ const RegistCodeNavigator = createStackNavigator(
     },
     Home: {
       screen: HomeNavigator,
-      navigationOptions: { header: null },
+      navigationOptions: { header: null, gesturesEnabled: false },
     },
   },
   {

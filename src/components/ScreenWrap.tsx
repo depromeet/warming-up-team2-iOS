@@ -13,7 +13,7 @@ const InnerWrap = styled.View`
 `;
 
 const ScreenWrap: React.FC<{
-  children: React.ReactElement;
+  children: React.ReactElement[] | React.ReactElement;
   forceInset?: ForceInsetProp;
 }> = ({ children, forceInset }) => {
   return (

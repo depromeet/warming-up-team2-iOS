@@ -36,3 +36,6 @@ export function ifIPhoneX(
   }
   return regularStyle;
 }
+
+export const DEVICE_WIDTH = Dimensions.get('window').width;
+export const DEVICE_HEIGHT = Dimensions.get('window').height;
