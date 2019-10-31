@@ -4,6 +4,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   extends: ['airbnb', 'prettier'],
   rules: {
+    'no-param-reassign': 'off',
     'react/jsx-closing-tag-location': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'react/prop-types': 'off',

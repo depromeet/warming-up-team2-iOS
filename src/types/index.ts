@@ -1,8 +1,6 @@
+import { AnyAction } from 'redux';
 import { StyleProp, TextStyle } from 'react-native';
-
 import { FC } from 'react';
-
-// export type Friend = Omit<User, 'uid'>;
 
 interface IconProps {
   style?: StyleProp<TextStyle>;
@@ -12,3 +10,7 @@ interface IconProps {
 }
 
 export type IconType = FC<IconProps>;
+
+export interface ActionType extends AnyAction {
+  payload: { [key: string]: any };
+}
