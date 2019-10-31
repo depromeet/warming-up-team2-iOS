@@ -6,11 +6,23 @@ import styled from 'styled-components/native';
 import * as NavigationService from 'libs/NavigationService';
 import colors from 'libs/colors';
 import { ScreenWrap, Text, MainButton, SingleLineTextInput } from 'components';
-import { IMG_CHA_3 } from 'libs/icons';
+import { IMG_CHA_3, IMG_BG_CHA } from 'libs/icons';
+import { DEVICE_WIDTH } from 'libs/styleUtils';
+
+const IMAGE_HEIGHT = DEVICE_WIDTH * 0.5;
 
 const Wrap = styled.View`
   flex: 1;
   background-color: ${colors.white};
+`;
+
+const BGImage = styled.Image.attrs({ source: IMG_BG_CHA })`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: ${IMAGE_HEIGHT}px;
 `;
 
 const TextView = styled.View``;
@@ -61,7 +73,7 @@ const RegistCode: NavigationStackScreenComponent = () => {
   };
 
   return (
-    <ScreenWrap>
+    <ScreenWrap forceInset={{ bottom: 'never' }}>
       <KeyboardAwareScrollView
         extraScrollHeight={150}
         scrollEnabled={false}
@@ -98,6 +110,7 @@ const RegistCode: NavigationStackScreenComponent = () => {
           </Body>
         </Wrap>
       </KeyboardAwareScrollView>
+      <BGImage />
     </ScreenWrap>
   );
 };

@@ -9,7 +9,13 @@ import {
 
 let dispatch: NavigationDispatch;
 
-type ScreenName = 'Login' | 'Main' | 'Home' | 'RegistCode';
+type ScreenName =
+  | 'Login'
+  | 'Main'
+  | 'Home'
+  | 'RegistCode'
+  | 'FirstStep'
+  | 'SecStep';
 
 export function navigate(routeName: ScreenName, params?: NavigationParams) {
   const action = NavigationActions.navigate({

@@ -9,3 +9,4 @@ export const IC_EDIT = require('icons/ic_edit.png');
 // IMGS
 export const IMG_CHA_3 = require('imgs/img_character_3.png');
 export const IMG_CHA_4 = require('imgs/img_character_4.png');
+export const IMG_BG_CHA = require('imgs/bg_cha.png');

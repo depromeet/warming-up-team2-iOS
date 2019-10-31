@@ -4,6 +4,7 @@ import Animated from 'react-native-reanimated';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { TabView, SceneMap, NavigationState } from 'react-native-tab-view';
 
+import * as NavigationService from 'libs/NavigationService';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
 import { ScreenWrap, Touchable } from 'components';
 import { IC_MYPAGE, IC_EDIT } from 'libs/icons';
@@ -126,6 +127,10 @@ export const Home: NavigationStackScreenComponent = () => {
     );
   };
 
+  const onPressWrite = () => {
+    NavigationService.navigate('FirstStep');
+  };
+
   return (
     <ScreenWrap>
       <TabView
@@ -141,7 +146,7 @@ export const Home: NavigationStackScreenComponent = () => {
         swipeVelocityImpact={1}
         springVelocityScale={4}
       />
-      <WriteButton onPress={() => {}}>
+      <WriteButton onPress={onPressWrite}>
         <EditIcon />
       </WriteButton>
     </ScreenWrap>
