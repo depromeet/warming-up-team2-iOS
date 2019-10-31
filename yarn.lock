@@ -852,6 +852,15 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@react-native-community/art@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/art/-/art-1.0.2.tgz#38671edcf4eb3d820d62dc5ba3a151d75352f847"
+  integrity sha512-GFqRy5DfHmD0LF+cIn1TPeNienFNTuLsv3SNq1vsg2J04l51ESSAUq7dY35cCE/g6Hfi9t8zx+A9sEMplRKZ0g==
+  dependencies:
+    art "^0.10.3"
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+
 "@react-native-community/cli-platform-android@^3.0.0-alpha.1", "@react-native-community/cli-platform-android@^3.0.0-alpha.7":
   version "3.0.0-alpha.7"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-platform-android/-/cli-platform-android-3.0.0-alpha.7.tgz#03c3671ab72b62a8742aa71b66cb8d594171891f"
@@ -1510,7 +1519,7 @@ array-unique@^0.3.2:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
 
-art@^0.10.0:
+art@^0.10.0, art@^0.10.3:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/art/-/art-0.10.3.tgz#b01d84a968ccce6208df55a733838c96caeeaea2"
   integrity sha512-HXwbdofRTiJT6qZX/FnchtldzJjS3vkLJxQilc3Xj+ma2MXjY4UAyQ0ls1XZYVnDvVIBiFZbC6QsvtW86TD6tQ==
@@ -5973,6 +5982,21 @@ react-native-platform-touchable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
   integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
+
+react-native-progress-bar-animated@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-progress-bar-animated/-/react-native-progress-bar-animated-1.0.6.tgz#18de003ababb8222c84299ef2f20d0eab549dc19"
+  integrity sha512-UPAAwxtBVV+sPwhgVd78SA7QybPshV5CydaV0GJyM+eZ89ikkZQSasAUAgIQwVVCW1Tj6XNrgizimXM9JdczeA==
+  dependencies:
+    prop-types "^15.6.0"
+
+react-native-progress@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-4.0.1.tgz#9d61adb997d3d767365e7b68c96a188f2f3ed983"
+  integrity sha512-libLQjUm8MJyAbW0drxDBUNyDB3C/pmv8rxR2EjdsdBAMsnDTPrL6ljN+vXWi2zfKOcbn+TFU5llnl/vcGPoaA==
+  dependencies:
+    "@react-native-community/art" "^1.0.1"
+    prop-types "^15.7.2"
 
 react-native-reanimated@^1.3.0:
   version "1.3.0"

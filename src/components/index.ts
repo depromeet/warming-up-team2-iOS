@@ -7,3 +7,5 @@ export { default as MonthSummaryCard } from './MonthSummaryCard';
 export { default as Carousel } from './Carousel';
 export { default as AnimtedText } from './AnimtedText';
 export { default as MainButton } from './MainButton';
+export { default as AnimatedGraph } from './AnimatedGraph';
+export { default as HorizontalAnimatedBar } from './HorizontalAnimatedBar';

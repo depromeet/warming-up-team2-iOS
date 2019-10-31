@@ -99,7 +99,10 @@ export const Home: NavigationStackScreenComponent = () => {
 
           if (i === 2) {
             return (
-              <MypageButton onPress={() => setCurrentTabIndex(i)}>
+              <MypageButton
+                onPress={() => setCurrentTabIndex(i)}
+                key={route.key}
+              >
                 <MyPageImage />
               </MypageButton>
             );
