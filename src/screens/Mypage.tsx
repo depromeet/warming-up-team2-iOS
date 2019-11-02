@@ -10,7 +10,7 @@ const Wrap = styled.View`
 
 const Mypage: React.FC = () => {
   const zeroDatas = [0, 0, 0, 0, 0, 0];
-  const newDatas = [80, 54, 60, 95, 60, 100];
+  const newDatas = [80, 54, 89, 90, 0, 0];
   const expeditures = [200, 150, 90];
 
   const [datas, setDatas] = React.useState(zeroDatas);
@@ -37,7 +37,7 @@ const Mypage: React.FC = () => {
         height: 200,
       });
       setLineDatas(newDatas);
-    }, 4800);
+    }, 5000);
   }, []);
 
   return (

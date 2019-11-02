@@ -36,13 +36,14 @@ const AnimatedGraph: React.FC<Props> = ({
 }) => {
   const width = new Animated.Value(0);
   const [avgVisible, setAvgVisible] = React.useState(false);
+  const opacity = new Animated.Value(0);
 
   React.useEffect(() => {
     if (_compact(lineDatas) && _compact(lineDatas).length > 0) {
       setAvgVisible(true);
       Animated.timing(width, {
         toValue: DEVICE_WIDTH - 40,
-        duration: 3000,
+        duration: 1500,
       }).start();
     }
   }, [lineDatas]);
@@ -51,6 +52,12 @@ const AnimatedGraph: React.FC<Props> = ({
     if (avgVisible) {
       Animated.timing(width, {
         toValue: DEVICE_WIDTH - 40,
+        duration: 3000,
+      }).start();
+    }
+    if (avgVisible) {
+      Animated.timing(opacity, {
+        toValue: 1,
         duration: 3000,
       }).start();
     }
@@ -88,19 +95,18 @@ const AnimatedGraph: React.FC<Props> = ({
         svg={{ fontSize: 12, fill: '#454545' }}
       />
 
-      <LineChart
-        animate
-        animationDuration={700}
-        style={{
-          height: lineGraphInfo.height,
-          position: lineGraphInfo.position,
-          zIndex: 200,
-          marginHorizontal: 20,
-        }}
-        data={lineDatas}
-        svg={{ stroke: lineGraphInfo.stroke }}
-        contentInset={{ top: 20, bottom: 20, left: 8, right: 8 }}
-      />
+      <Animated.View style={{ opacity, position: lineGraphInfo.position }}>
+        <LineChart
+          style={{
+            height: lineGraphInfo.height,
+            zIndex: 200,
+            marginHorizontal: 20,
+          }}
+          data={lineDatas}
+          svg={{ stroke: lineGraphInfo.stroke }}
+          contentInset={{ top: 20, bottom: 20, left: 8, right: 8 }}
+        />
+      </Animated.View>
 
       {avgVisible && <AvgLine style={{ width }} />}
     </Wrap>
