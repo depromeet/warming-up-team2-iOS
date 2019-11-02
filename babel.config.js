@@ -8,6 +8,7 @@ module.exports = {
         alias: {
           icons: './assets/icons',
           imgs: './assets/imgs',
+          lotties: './assets/lotties',
         },
         extensions: ['.ios.js', '.android.js', '.js', '.json', '.ts', '.tsx'],
       },
