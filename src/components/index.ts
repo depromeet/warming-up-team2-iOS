@@ -9,3 +9,4 @@ export { default as AnimtedText } from './AnimtedText';
 export { default as MainButton } from './MainButton';
 export { default as AnimatedGraph } from './AnimatedGraph';
 export { default as HorizontalAnimatedBar } from './HorizontalAnimatedBar';
+export { default as TagViews } from './TagViews';
