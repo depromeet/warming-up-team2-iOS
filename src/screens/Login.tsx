@@ -43,14 +43,16 @@ const CenterView = styled.View`
 
 const Login: NavigationStackScreenComponent = () => {
   const onPressLogin = () => {
-    // KakaoLogins.login((err?: Error, result?: ITokenInfo) => {
-    //   if (err) {
-    //     console.log('login error', err);
-    //     return;
-    //   }
-    //   if (result) console.log('token', result);
-    // });
-    NavigationService.replace('Home');
+    KakaoLogins.login((err?: Error, result?: ITokenInfo) => {
+      if (err) {
+        console.log('login error', err);
+        return;
+      }
+      if (result) {
+        console.log('result', result);
+        NavigationService.replace('Home');
+      }
+    });
   };
 
   return (
