@@ -17,7 +17,9 @@ interface Props {
   };
 }
 
-const Wrap = styled.View``;
+const Wrap = styled.View`
+  margin-bottom: 50px;
+`;
 
 const AvgLine = styled(Animated.View)`
   border-style: dotted;

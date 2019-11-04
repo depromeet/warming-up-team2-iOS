@@ -10,7 +10,6 @@ interface Props {
 }
 
 const Wrap = styled.View`
-  margin-top: 100px;
   padding: 20px;
 `;
 
@@ -63,7 +62,6 @@ const Title = styled(Text)<{ bold?: boolean }>`
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
 `;
 
-// TODO: 더미데이터 없애고 반복코드 없애기
 const HorizontalAnimatedBar: React.FC<Props> = ({ expeditures }) => {
   const [progress, setProgress] = React.useState(0);
   const opacity = new Animated.Value(0);

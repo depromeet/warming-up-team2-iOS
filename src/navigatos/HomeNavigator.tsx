@@ -19,6 +19,7 @@ const HomeNavigator = createStackNavigator(
     },
   },
   {
+    headerMode: 'screen',
     defaultNavigationOptions: {
       ...baseStackNavigationOptions,
     },

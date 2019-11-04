@@ -19,6 +19,7 @@ const BText: React.FC<Props> = ({
       fontFamily: isLight ? 'NotoSansCJKkr-Light' : 'NotoSansCJKkr-Regular',
     },
     android: {
+      color: '#191919',
       //   fontFamily: isLight ? 'NotoSansKR-Light' : 'NotoSansKR-Regular',
       includeFontPadding: false,
     },

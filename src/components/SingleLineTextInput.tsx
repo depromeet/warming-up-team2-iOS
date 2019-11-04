@@ -5,12 +5,21 @@ import {
   TextInputProps,
   TextInput,
   ReturnKeyType,
+  KeyboardType,
 } from 'react-native';
 import styled from 'styled-components/native';
 
 import Text from './Text';
 
 const Wrap = styled.View``;
+
+const Tail = styled(Text)`
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  background-color: white;
+`;
 
 const StyledTextInput = styled(TextInput)<{ isFocused: boolean }>`
   flex: 1;
@@ -22,14 +31,14 @@ const StyledTextInput = styled(TextInput)<{ isFocused: boolean }>`
 
 const TitieText = styled(Text)`
   flex: 0.8;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 `;
 
 interface Props {
   style?: StyleProp<TextInputProps>;
   onChangeText: (text: string) => void;
-  title: string;
+  title?: string;
   autoFocus?: boolean;
   blurOnSubmit?: boolean;
   isRow?: boolean;
@@ -37,6 +46,8 @@ interface Props {
   isLight?: boolean;
   maxLength?: number;
   returnKeyType?: ReturnKeyType;
+  placeholder?: string;
+  keyboardType?: KeyboardType;
 }
 
 const SingleLineTextInput: React.FC<Props> = ({
@@ -48,6 +59,9 @@ const SingleLineTextInput: React.FC<Props> = ({
   maxLength,
   style,
   returnKeyType,
+  placeholder,
+  tailText,
+  keyboardType,
 }) => {
   const defaultStyle = Platform.select({
     ios: {
@@ -74,7 +88,7 @@ const SingleLineTextInput: React.FC<Props> = ({
 
   return (
     <Wrap style={{ flexDirection, justifyContent: 'space-between' }}>
-      <TitieText>{title}</TitieText>
+      {title && <TitieText>{title}</TitieText>}
       <StyledTextInput
         onBlur={onBlur}
         onFocus={onFocus}
@@ -85,7 +99,11 @@ const SingleLineTextInput: React.FC<Props> = ({
         onChangeText={onChangeText}
         maxLength={maxLength}
         returnKeyType={returnKeyType}
+        placeholder={placeholder}
+        placeholderTextColor="#b7b7b7"
+        keyboardType={keyboardType}
       />
+      {tailText && <Tail>{tailText}</Tail>}
     </Wrap>
   );
 };
