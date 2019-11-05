@@ -11,8 +11,7 @@ import {
   SingleLineTextInput,
   Touchable,
 } from 'components';
-
-const animtation = require('lotties/mypage.json');
+import { MYPAGE_IMG } from 'libs/icons';
 
 const Wrap = styled.ScrollView.attrs({
   contentContainerStyle: { paddingBottom: 30 },
@@ -111,6 +110,14 @@ const StyledSingleTextInput = styled(SingleLineTextInput)`
   width: 17 4px;
 `;
 
+const MyPageGIF = styled.Image.attrs({
+  source: MYPAGE_IMG,
+  resizeMode: 'contain',
+})`
+  width: 87px;
+  height: 87px;
+`;
+
 const Mypage: React.FC = () => {
   const zeroDatas = [0, 0, 0, 0, 0, 0];
   const newDatas = [80, 54, 89, 90, 0, 0];
@@ -175,16 +182,8 @@ const Mypage: React.FC = () => {
             </Title>
             <Title>계정연동 중입니다</Title>
           </ColView>
-          <Animated.View style={{ marginRight: right, top: -10 }}>
-            <LottieView
-              source={animtation}
-              autoPlay
-              loop
-              style={{
-                width: 100,
-                height: 100,
-              }}
-            />
+          <Animated.View style={{ marginRight: right }}>
+            <MyPageGIF />
           </Animated.View>
         </TitleView>
       );

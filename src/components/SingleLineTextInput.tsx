@@ -36,6 +36,7 @@ const TitieText = styled(Text)`
   font-weight: bold;
 `;
 
+// TODO: ref any타입 없애기
 interface Props {
   style?: StyleProp<TextInputProps>;
   onChangeText: (text: string) => void;
@@ -49,7 +50,7 @@ interface Props {
   returnKeyType?: ReturnKeyType;
   placeholder?: string;
   keyboardType?: KeyboardType;
-  ref: void | React.Ref<TextInput>;
+  ref: any;
 }
 
 const SingleLineTextInput: React.FC<Props> = ({

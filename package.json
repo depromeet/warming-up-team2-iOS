@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@expo/react-native-action-sheet": "^3.3.1",
     "@react-native-community/datetimepicker": "^2.1.0",
     "@react-native-seoul/kakao-login": "2.1.0",
     "axios": "^0.19.0",
@@ -24,6 +25,7 @@
     "react-native-bootsplash": "^1.0.3",
     "react-native-config": "github:luggit/react-native-config#master",
     "react-native-gesture-handler": "^1.4.1",
+    "react-native-image-crop-picker": "^0.26.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-modal": "^11.5.1",
     "react-native-platform-touchable": "^1.1.1",

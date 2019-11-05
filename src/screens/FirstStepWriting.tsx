@@ -1,6 +1,7 @@
 import React from 'react';
 import useForm from 'react-hook-form';
 import { TextInput, Alert } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import styled from 'styled-components/native';
 import DateTimePicker, {
@@ -21,10 +22,10 @@ import {
   TagViews,
 } from 'components';
 
-const Wrap = styled.ScrollView`
+const Wrap = styled(KeyboardAwareScrollView)`
   flex: 1;
   background-color: ${colors.white};
-  padding: 20px;
+  padding: 39px 20px;
 `;
 
 const ModalContainer = styled.View`
@@ -136,6 +137,7 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
         <TextView>
           <StyledSingleLineTextInput
             ref={register({ name: 'contents' }, { required: true })}
+            autoFocus
             placeholder="내역"
             title="어느곳에 지출하셨나요"
             tailText="에 지출"
@@ -168,7 +170,10 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
           />
         </TextView>
         <TextView>
-          <TitieText>결제수단(선택)</TitieText>
+          <RowView>
+            <TitieText>결제수단(선택)</TitieText>
+            <SubText>미선택시 미등록으로 기록됩니다</SubText>
+          </RowView>
           <TagViews
             multiple={false}
             tags={['카드', '현금']}

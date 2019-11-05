@@ -13,7 +13,6 @@ interface Props {
 const TagView = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 16px;
 `;
 
 const Tag = styled(Touchable).attrs({
@@ -25,6 +24,7 @@ const Tag = styled(Touchable).attrs({
   align-items: center;
   background-color: ${({ isSelected }) => (isSelected ? '#00aef2' : '#d1d1d1')};
   margin-right: 12px;
+  margin-top: 16px;
 `;
 
 const TagText = styled(Text)`
