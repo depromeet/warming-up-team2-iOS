@@ -9,7 +9,8 @@ import Touchable, {
 } from 'react-native-platform-touchable';
 
 interface Props {
-  onPress: () => void;
+  disabled?: boolean;
+  onPress: (arg: any) => any;
   style?: StyleProp<PlatformTouchableProps>;
   hitSlop?: NativeScrollRectangle;
   noEffect?: boolean;
@@ -21,10 +22,12 @@ export const BTouchable: React.FC<Props> = ({
   style,
   hitSlop,
   noEffect = false,
+  disabled = false,
 }) => {
   if (noEffect) {
     return (
       <TouchableOpacity
+        disabled={disabled}
         style={style}
         onPress={onPress}
         activeOpacity={0.75}
@@ -37,6 +40,7 @@ export const BTouchable: React.FC<Props> = ({
 
   return (
     <Touchable
+      disabled={disabled}
       style={style}
       onPress={onPress}
       activeOpacity={0.75}

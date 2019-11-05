@@ -7,7 +7,8 @@ import Touchable from './Touchable';
 import Text from './Text';
 
 interface Props {
-  onPress: () => void;
+  disabled?: boolean;
+  onPress: (arg: any) => any;
   style?: StyleProp<PlatformTouchableProps>;
   primary?: boolean;
   hitSlop?: NativeScrollRectangle;
@@ -36,9 +37,11 @@ const MainButton: React.FC<Props> = ({
   onPress,
   title,
   primary = false,
+  disabled = false,
 }) => {
   return (
     <StyledMainButton
+      disabled={disabled}
       style={style}
       primary={primary}
       onPress={onPress}

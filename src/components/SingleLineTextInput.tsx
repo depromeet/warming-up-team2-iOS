@@ -22,6 +22,7 @@ const Tail = styled(Text)`
 `;
 
 const StyledTextInput = styled(TextInput)<{ isFocused: boolean }>`
+  font-size: 18px;
   flex: 1;
   border-bottom-width: 1.5px;
   border-bottom-color: ${({ isFocused }) =>
@@ -48,6 +49,7 @@ interface Props {
   returnKeyType?: ReturnKeyType;
   placeholder?: string;
   keyboardType?: KeyboardType;
+  ref: void | React.Ref<TextInput>;
 }
 
 const SingleLineTextInput: React.FC<Props> = ({
@@ -62,6 +64,7 @@ const SingleLineTextInput: React.FC<Props> = ({
   placeholder,
   tailText,
   keyboardType,
+  ref,
 }) => {
   const defaultStyle = Platform.select({
     ios: {
@@ -90,6 +93,7 @@ const SingleLineTextInput: React.FC<Props> = ({
     <Wrap style={{ flexDirection, justifyContent: 'space-between' }}>
       {title && <TitieText>{title}</TitieText>}
       <StyledTextInput
+        ref={ref}
         onBlur={onBlur}
         onFocus={onFocus}
         isFocused={focused}

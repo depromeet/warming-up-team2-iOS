@@ -1,18 +1,24 @@
 import React from 'react';
-import { TextInput } from 'react-natvie';
+import useForm from 'react-hook-form';
+import { TextInput, Alert } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import styled from 'styled-components/native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  AndroidEvent,
+} from '@react-native-community/datetimepicker';
 import Modal from 'react-native-modal';
+import _isEmpty from 'lodash/isEmpty';
 
 import * as NavigationService from 'libs/NavigationService';
 import colors from 'libs/colors';
+import { formatDates } from 'libs/dateUtils';
 import {
   ScreenWrap,
   Text,
   MainButton,
   SingleLineTextInput,
   Touchable,
+  TagViews,
 } from 'components';
 
 const Wrap = styled.ScrollView`
@@ -74,6 +80,7 @@ const ButtonText = styled(Text)`
 `;
 
 const StyledTextInput = styled.TextInput<{ isFocused: boolean }>`
+  font-size: 18px;
   border-bottom-width: 1.5px;
   border-bottom-color: ${({ isFocused }) =>
     isFocused ? '#00aef2' : '#d1d1d1'};
@@ -84,27 +91,42 @@ const StyledTextInput = styled.TextInput<{ isFocused: boolean }>`
 const FirstStepWriting: NavigationStackScreenComponent = () => {
   const timePickerTextInput = React.useRef<TextInput>(null);
   const [dateTimeFocused, setDateTimeFocused] = React.useState(false);
+  const [uploadTime, setUploadTime] = React.useState(new Date());
+  const { register, setValue, handleSubmit, errors } = useForm();
+
+  React.useEffect(() => {
+    if (!_isEmpty(errors)) {
+      Alert.alert('에러', '필요한 항목을 모두 넣었는지 확인해주세요');
+    }
+  }, [errors]);
+
   const onPressNext = () => {
     NavigationService.navigate('SecStep');
   };
 
   const setDate = () => {
     setDateTimeFocused(false);
-    if (timePickerTextInput.current) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (timePickerTextInput.current) {
         timePickerTextInput.current.blur();
-      }, 650);
-    }
+      }
+    }, 650);
   };
 
   const onFocusDateTime = (isFocused: boolean) => {
     setDateTimeFocused(isFocused);
     if (!isFocused) {
-      if (timePickerTextInput.current) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (timePickerTextInput.current) {
           timePickerTextInput.current.blur();
-        }, 650);
-      }
+        }
+      }, 650);
+    }
+  };
+
+  const onDateChange = (event: AndroidEvent, date?: Date) => {
+    if (date) {
+      setUploadTime(date);
     }
   };
 
@@ -113,21 +135,23 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
       <Wrap>
         <TextView>
           <StyledSingleLineTextInput
+            ref={register({ name: 'contents' }, { required: true })}
             placeholder="내역"
-            onChangeText={() => {}}
             title="어느곳에 지출하셨나요"
             tailText="에 지출"
             returnKeyType="done"
+            onChangeText={text => setValue('contents', text)}
           />
         </TextView>
         <TextView>
           <StyledSingleLineTextInput
+            ref={register({ name: 'expenditure' }, { required: true })}
             placeholder="0"
-            onChangeText={() => {}}
             title="얼마를 지출하셨나요"
             tailText="원"
             returnKeyType="done"
             keyboardType="numeric"
+            onChangeText={text => setValue('expenditure', text)}
           />
         </TextView>
         <TextView>
@@ -136,6 +160,7 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
             <SubText>미수정시 오늘 날짜로 등록됩니다</SubText>
           </RowView>
           <StyledTextInput
+            value={uploadTime ? formatDates(uploadTime) : ''}
             placeholder="2019년 00월 00일"
             onFocus={() => onFocusDateTime(true)}
             isFocused={dateTimeFocused}
@@ -144,9 +169,16 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
         </TextView>
         <TextView>
           <TitieText>결제수단(선택)</TitieText>
+          <TagViews
+            multiple={false}
+            tags={['카드', '현금']}
+            onSelect={selected => {
+              console.log('selected', selected);
+            }}
+          />
         </TextView>
       </Wrap>
-      <BottomButton onPress={onPressNext} title="다음" primary />
+      <BottomButton onPress={handleSubmit(onPressNext)} title="다음" primary />
       <Modal
         isVisible={dateTimeFocused}
         animationIn="slideInUp"
@@ -165,11 +197,11 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
             </Button>
           </ButtonsView>
           <DateTimePicker
-            value={new Date('2020-06-12T14:42:42')}
-            mode="datetime"
+            value={uploadTime || new Date()}
+            mode="date"
             locale="ko"
             minuteInterval={30}
-            // onChange={setDate}
+            onChange={onDateChange}
           />
         </ModalContainer>
       </Modal>
