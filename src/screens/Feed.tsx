@@ -2,8 +2,12 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 
-import { Text } from 'components';
-import { IMG_CHA_4 } from 'libs/icons';
+import { Text, DetailCard, Touchable, SimpleCard } from 'components';
+import { IMG_CHA_4, IC_FOUR_SQ, IC_ONE_SQ } from 'libs/icons';
+
+const Wrap = styled.View`
+  flex: 1;
+`;
 
 const NodataView = styled.View`
   justify-content: center;
@@ -22,15 +26,58 @@ const NoDateText = styled(Text)`
   text-align: center;
 `;
 
-const Wrap = styled.View`
-  flex: 1;
+const StyledFlatList = styled(FlatList as new () => FlatList<Data>).attrs({
+  contentContainerStyle: { paddingHorizontal: 20, paddingBottom: 80 },
+})``;
+
+const Button = styled(Touchable)`
+  margin: 20px 16px;
 `;
 
-const renderItems = () => {
-  return null;
-};
+const SquareImage = styled.Image``;
+
+interface Data {
+  id: number;
+}
+
+// TODO: 데이터 타입 정의
+const DummyDatas = [
+  {
+    id: 0,
+    image: 'https://via.placeholder.com/350',
+    paycategory: '카드',
+    expenditureTitle: '남편과 데이트1',
+    description:
+      '남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1',
+    expenditureAmount: 3000,
+    createdAt: new Date(),
+  },
+  {
+    id: 1,
+    image: 'https://via.placeholder.com/350',
+    paycategory: '카드',
+    description:
+      '남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1',
+    expenditureAmount: 35000,
+    createdAt: new Date(),
+  },
+  {
+    id: 2,
+    image: 'https://via.placeholder.com/350',
+    paycategory: '현금',
+    description:
+      '남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1',
+    expenditureTitle: '남편과 데이트3',
+    expenditureAmount: 50000,
+    createdAt: new Date(),
+  },
+];
 
 const Feed: React.FC = () => {
+  const [isDetailMode, setDetailMode] = React.useState(true);
+  const onPressSquareButton = () => {
+    setDetailMode(!isDetailMode);
+  };
   const renderEmpty = () => {
     return (
       <NodataView>
@@ -42,12 +89,35 @@ const Feed: React.FC = () => {
     );
   };
 
+  const renderItems = ({ item }: any) => {
+    if (isDetailMode) {
+      return <DetailCard data={item} />;
+    }
+    return <SimpleCard data={item} />;
+  };
+
+  const keyExtractor = (item: Data) => item.id.toString();
+
   return (
     <Wrap>
-      <FlatList
-        data={[]}
+      <Button onPress={onPressSquareButton}>
+        <SquareImage source={isDetailMode ? IC_FOUR_SQ : IC_ONE_SQ} />
+      </Button>
+      <StyledFlatList
+        key={isDetailMode ? 1 : 2}
+        data={DummyDatas}
         renderItem={renderItems}
         ListEmptyComponent={renderEmpty}
+        numColumns={isDetailMode ? 1 : 2}
+        keyExtractor={keyExtractor}
+        columnWrapperStyle={
+          isDetailMode
+            ? null
+            : {
+                justifyContent: 'space-between',
+                marginTop: 10,
+              }
+        }
       />
     </Wrap>
   );

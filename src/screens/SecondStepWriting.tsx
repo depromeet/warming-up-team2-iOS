@@ -10,6 +10,7 @@ import {
   TagViews,
   ImageUploader,
   MultiLineTextInput,
+  MainButton,
 } from 'components';
 
 const Wrap = styled(KeyboardAwareScrollView)`
@@ -48,7 +49,26 @@ const StyledMultiLineTextInput = styled(MultiLineTextInput)`
   margin-left: 10px;
 `;
 
+const BottomButtonViews = styled.View`
+  position: absolute;
+  height: 48px;
+  bottom: 60px;
+  left: 20px;
+  right: 20px;
+  flex-direction: row;
+`;
+
+const BottomButton = styled(MainButton)`
+  flex: 1;
+  margin: 0 4px;
+`;
+
 const SecondStepWriting: NavigationStackScreenComponent = () => {
+  const onPressDone = () => {
+    // NavigationService.navigate('SecStep');
+    console.log('onPressDone');
+  };
+
   return (
     <ScreenWrap>
       <Wrap>
@@ -77,6 +97,10 @@ const SecondStepWriting: NavigationStackScreenComponent = () => {
           </ImageUploadInnerView>
         </TextView>
       </Wrap>
+      <BottomButtonViews>
+        <BottomButton onPress={onPressDone} title="바로 완료" />
+        <BottomButton onPress={onPressDone} title="작성" primary />
+      </BottomButtonViews>
     </ScreenWrap>
   );
 };

@@ -6,6 +6,8 @@ export const IC_BACK = require('icons/back.png');
 export const IC_CALENDAR = require('icons/icon_calendar.png');
 export const IC_EDIT = require('icons/ic_edit.png');
 export const IC_CAMERA = require('icons/icon_camera.png');
+export const IC_FOUR_SQ = require('icons/fourSquare.png');
+export const IC_ONE_SQ = require('icons/oneSquare.png');
 
 // IMGS
 export const IMG_CHA_3 = require('imgs/img_character_3.png');
