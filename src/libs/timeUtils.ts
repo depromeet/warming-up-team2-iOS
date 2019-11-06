@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 
-export const formatDates = (date: Date) => {
-  return format(date, 'YYYY년 MM월 DD일');
+export const formatTime = (date: Date) => {
+  return format(date, 'HH: mm');
 };
 
-export const formatRelativeDate = (date: Date) => {
-  // return formatRelative(date, "'Today is a' iiii");
+export const formatTime2 = (date: Date) => {
+  // return format(date, 'HH:mm');
 };

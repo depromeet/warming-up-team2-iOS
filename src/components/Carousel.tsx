@@ -12,9 +12,10 @@ const AnimatedCarousel = Animated.createAnimatedComponent(Carousel);
 interface Props {
   datas: any[];
   itemWidth: Animated.AnimatedInterpolation;
+  onSnapToItem: (index: number) => void;
 }
 
-const BCarousel: React.FC<Props> = ({ datas, itemWidth }) => {
+const BCarousel: React.FC<Props> = ({ datas, itemWidth, onSnapToItem }) => {
   const carouselRef = React.useRef(null);
 
   const renderItems = ({ item }: any) => {
@@ -34,6 +35,7 @@ const BCarousel: React.FC<Props> = ({ datas, itemWidth }) => {
       containerCustomStyle={{ paddingLeft: 20 }}
       activeSlideAlignment="start"
       slideStyle={{ marginRight: 10 }}
+      onSnapToItem={onSnapToItem}
       useScrollView
     />
   );

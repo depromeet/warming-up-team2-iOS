@@ -1,14 +1,13 @@
 import React from 'react';
-import { FlatList, Animated } from 'react-native';
+import { Animated, SectionList } from 'react-native';
 import styled from 'styled-components/native';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Fade,
-} from 'rn-placeholder';
 
-import { Carousel } from 'components';
+import { Carousel, Text, ExpenditureItem } from 'components';
+import { formatDatesDay } from 'libs/dateUtils';
+
+interface Data {
+  id: number;
+}
 
 const HEADER_EXPANDED_HEIGHT = 148;
 const HEADER_COLLAPSED_HEIGHT = 110;
@@ -17,6 +16,8 @@ const Wrap = styled.View`
   flex: 1;
   background-color: white;
 `;
+
+const StyledSectionList = styled(SectionList)``;
 
 const HeaderView = styled(Animated.View)<{ height: number }>`
   align-items: center;
@@ -29,13 +30,149 @@ const HeaderView = styled(Animated.View)<{ height: number }>`
   background-color: white;
 `;
 
+const SectionView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const DateText = styled(Text)`
+  color: #343434;
+  font-weight: bold;
+  font-size: 12px;
+`;
+
+const ExpenditureText = styled(Text)`
+  color: #fe5b22;
+  font-size: 15px;
+`;
+
+const DATAS = [
+  [
+    {
+      title: { date: new Date(), expenditureAmountTotal: 30000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 100000,
+          expenditureTitle: '분유',
+          date: new Date(),
+          payCategory: '카드',
+        },
+        {
+          category: '유흥',
+          expenditure: 200000,
+          expenditureTitle: '분유',
+          date: new Date(),
+          payCategory: '현금',
+        },
+      ],
+    },
+    {
+      title: { date: new Date(), expenditureAmountTotal: 35000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 100000,
+          expenditureTitle: '분유',
+          date: new Date(),
+          payCategory: '현금',
+        },
+        {
+          category: '유흥',
+          expenditure: 200000,
+          expenditureTitle: '분유',
+          date: new Date(),
+          payCategory: '카드',
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: { date: new Date(), expenditureAmountTotal: 40000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 200000,
+          expenditureTitle: '분유2',
+          date: new Date(),
+          payCategory: '카드',
+        },
+        {
+          category: '유흥',
+          expenditure: 300000,
+          expenditureTitle: '분유2',
+          date: new Date(),
+          payCategory: '현금',
+        },
+      ],
+    },
+    {
+      title: { date: new Date(), expenditureAmountTotal: 55000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 400000,
+          expenditureTitle: '분유3',
+          date: new Date(),
+          payCategory: '현금',
+        },
+        {
+          category: '유흥',
+          expenditure: 1200000,
+          expenditureTitle: '분유3',
+          date: new Date(),
+          payCategory: '카드',
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: { date: new Date(), expenditureAmountTotal: 10000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 400000,
+          expenditureTitle: '분유4',
+          date: new Date(),
+          payCategory: '카드',
+        },
+        {
+          category: '유흥',
+          expenditure: 1200000,
+          expenditureTitle: '분유4',
+          date: new Date(),
+          payCategory: '현금',
+        },
+      ],
+    },
+    {
+      title: { date: new Date(), expenditureAmountTotal: 25000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 100000,
+          expenditureTitle: '분유5',
+          date: new Date(),
+          payCategory: '현금',
+        },
+        {
+          category: '유흥',
+          expenditure: 200000,
+          expenditureTitle: '분유5',
+          date: new Date(),
+          payCategory: '카드',
+        },
+      ],
+    },
+  ],
+];
+
 const DUMMY = [
   { month: '1월', expenditure: 100000, duration: '2019.10.01 - 2019.10.07' },
   { month: '2월', expenditure: 200000, duration: '2019.11.01 - 2019.11.07' },
   { month: '3월', expenditure: 300000, duration: '2019.12.01 - 2019.12.07' },
-  { month: '4월', expenditure: 400000, duration: '2019.10.01 - 2019.10.07' },
-  { month: '5월', expenditure: 500000, duration: '2019.10.01 - 2019.10.07' },
-  { month: '6월', expenditure: 600000, duration: '2019.10.01 - 2019.10.07' },
 ];
 
 const contentContainerStyle = {
@@ -43,17 +180,9 @@ const contentContainerStyle = {
   backgroundColor: 'white',
 };
 
-const renderItems = () => {
-  return (
-    <Placeholder Animation={Fade} Left={PlaceholderMedia}>
-      <PlaceholderLine width={40} />
-      <PlaceholderLine width={60} />
-    </Placeholder>
-  );
-};
-
 const AccountBook: React.FC = () => {
   const scrollY = new Animated.Value(0);
+  const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
 
   const headerHeight = scrollY.interpolate({
     inputRange: [-80, 0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
@@ -71,19 +200,43 @@ const AccountBook: React.FC = () => {
     extrapolate: 'clamp',
   });
 
+  const renderItems = ({ item }: any) => {
+    return <ExpenditureItem item={item} />;
+  };
+
+  const renderHeader = ({ section: { title } }: any) => (
+    <SectionView>
+      <DateText>{formatDatesDay(title.date)}</DateText>
+      <ExpenditureText>
+        -{title.expenditureAmountTotal.toLocaleString()}원
+      </ExpenditureText>
+    </SectionView>
+  );
+
+  const onSnapToItem = (index: number) => {
+    setCurrentCardIndex(index);
+  };
+
   return (
     <Wrap>
       <HeaderView style={{ height: headerHeight }}>
-        <Carousel datas={DUMMY} itemWidth={itemWidth} />
+        <Carousel
+          datas={DUMMY}
+          itemWidth={itemWidth}
+          onSnapToItem={onSnapToItem}
+        />
       </HeaderView>
-      <FlatList
+      <StyledSectionList
         contentContainerStyle={[
           contentContainerStyle,
           { paddingTop: HEADER_EXPANDED_HEIGHT + 20 },
         ]}
-        data={DUMMY}
+        sections={DATAS[currentCardIndex]}
+        keyExtractor={(item, index) => {
+          return item.category + index;
+        }}
         renderItem={renderItems}
-        keyExtractor={item => item.month}
+        renderSectionHeader={renderHeader}
         onScroll={Animated.event([
           {
             nativeEvent: {
