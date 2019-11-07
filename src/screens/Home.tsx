@@ -71,7 +71,7 @@ export const Home: NavigationStackScreenComponent = () => {
       setTimeout(() => {
         setScrollEnabled(true);
         setGraphViewVisited(true);
-      }, 3500);
+      }, 3000);
     }
 
     dispatch(AppActions.setCurrentIndex(index));

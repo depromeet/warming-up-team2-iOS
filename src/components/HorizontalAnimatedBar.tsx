@@ -1,5 +1,7 @@
+import * as Animatable from 'react-native-animatable';
 import React from 'react';
-import { Animated, InteractionManager } from 'react-native';
+
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { Bar } from 'react-native-progress';
 
@@ -8,6 +10,8 @@ import Text from './Text';
 interface Props {
   expeditures: number[];
 }
+
+const AniComponent = Animatable.createAnimatableComponent(View);
 
 const Wrap = styled.View`
   padding: 20px;
@@ -24,7 +28,7 @@ const InnerView = styled.View`
   z-index: -100;
 `;
 
-const BubbleView = styled(Animated.View)<{ right: number }>`
+const BubbleView = styled(AniComponent)<{ right: number }>`
   background-color: #ff7443;
   border-radius: 35px;
   padding: 4px 5px;
@@ -64,24 +68,22 @@ const Title = styled(Text)<{ bold?: boolean }>`
 
 const HorizontalAnimatedBar: React.FC<Props> = ({ expeditures }) => {
   const [progress, setProgress] = React.useState(0);
-  const opacity = new Animated.Value(0);
+  const [bubbleVisible, setBubbleVisigle] = React.useState(false);
 
   React.useEffect(() => {
     setProgress(1);
-    InteractionManager.runAfterInteractions(() => {
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 800,
-      }).start();
-    });
-  });
+    setTimeout(() => {
+      setBubbleVisigle(true);
+    }, 1500);
+  }, []);
 
   return (
     <Wrap>
-      <BubbleView right={80} style={{ opacity }}>
+      <BubbleView right={80} animation="fadeIn" delay={500}>
         <BubbleText>-100,000원</BubbleText>
         <Triangle />
       </BubbleView>
+
       {expeditures.map((exp: number, index: number) => (
         <HorizontalWrap key={`$육아용품 - ${exp}`}>
           <Title>육아용품</Title>
