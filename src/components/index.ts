@@ -14,3 +14,4 @@ export { default as ImageUploader } from './ImageUploader';
 export { default as DetailCard } from './DetailCard';
 export { default as SimpleCard } from './SimpleCard';
 export { default as ExpenditureItem } from './ExpenditureItem';
+export { default as LoadingCover } from './LoadingCover';

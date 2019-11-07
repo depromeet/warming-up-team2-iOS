@@ -3,7 +3,9 @@ import styled from 'styled-components/native';
 import Animated from 'react-native-reanimated';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { TabView, SceneMap, NavigationState } from 'react-native-tab-view';
+import { useDispatch } from 'react-redux';
 
+import * as AppActions from 'store/app/actions';
 import * as NavigationService from 'libs/NavigationService';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
 import { ScreenWrap, Touchable } from 'components';
@@ -52,12 +54,29 @@ const EditIcon = styled.Image.attrs({ source: IC_EDIT })`
 `;
 
 export const Home: NavigationStackScreenComponent = () => {
+  const dispatch = useDispatch();
+  const [graphViewVisited, setGraphViewVisited] = React.useState(false);
+  const [scrollEnabled, setScrollEnabled] = React.useState(true);
   const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
   const routes = [
     { key: 'feed', title: '피드' },
     { key: 'accountBook', title: '가계부' },
     { key: 'myPage', title: '마이페이지' },
   ];
+
+  const onChangeTabIndex = (index: number) => {
+    if (index === 2 && !graphViewVisited) {
+      setScrollEnabled(false);
+
+      setTimeout(() => {
+        setScrollEnabled(true);
+        setGraphViewVisited(true);
+      }, 3500);
+    }
+
+    dispatch(AppActions.setCurrentIndex(index));
+    setCurrentTabIndex(index);
+  };
 
   const renderTabBar = ({
     navigationState,
@@ -100,10 +119,7 @@ export const Home: NavigationStackScreenComponent = () => {
 
           if (i === 2) {
             return (
-              <MypageButton
-                onPress={() => setCurrentTabIndex(i)}
-                key={route.key}
-              >
+              <MypageButton onPress={() => onChangeTabIndex(i)} key={route.key}>
                 <MyPageImage />
               </MypageButton>
             );
@@ -111,7 +127,7 @@ export const Home: NavigationStackScreenComponent = () => {
 
           return (
             <TabButton
-              onPress={() => setCurrentTabIndex(i)}
+              onPress={() => onChangeTabIndex(i)}
               right={i === 1}
               key={route.key}
             >
@@ -140,11 +156,12 @@ export const Home: NavigationStackScreenComponent = () => {
           accountBook: AccountBook,
           myPage: Mypage,
         })}
-        onIndexChange={index => setCurrentTabIndex(index)}
+        onIndexChange={index => onChangeTabIndex(index)}
         initialLayout={{ width: DEVICE_WIDTH }}
         renderTabBar={renderTabBar}
         swipeVelocityImpact={1}
         springVelocityScale={4}
+        swipeEnabled={scrollEnabled}
       />
       <WriteButton onPress={onPressWrite}>
         <EditIcon />

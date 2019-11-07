@@ -30,8 +30,8 @@ const Bootstrap: NavigationStackScreenComponent = ({ navigation }) => {
 
     // 로그인은 했는데 코드 등록 안했을 떄
     setTimeout(() => {
-      navigation.navigate('RegistCode');
-      // navigation.navigate('Home');
+      // navigation.navigate('Auth');
+      navigation.navigate('Home');
     }, 1700);
   }, []);
 

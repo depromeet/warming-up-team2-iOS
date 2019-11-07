@@ -224,9 +224,11 @@ const AccountBook: React.FC = () => {
           datas={DUMMY}
           itemWidth={itemWidth}
           onSnapToItem={onSnapToItem}
+          currentIndex={currentCardIndex}
         />
       </HeaderView>
       <StyledSectionList
+        stickySectionHeadersEnabled
         contentContainerStyle={[
           contentContainerStyle,
           { paddingTop: HEADER_EXPANDED_HEIGHT + 20 },

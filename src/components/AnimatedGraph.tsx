@@ -54,13 +54,13 @@ const AnimatedGraph: React.FC<Props> = ({
     if (avgVisible) {
       Animated.timing(width, {
         toValue: DEVICE_WIDTH - 40,
-        duration: 3000,
+        duration: 1500,
       }).start();
     }
     if (avgVisible) {
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 3000,
+        duration: 1500,
       }).start();
     }
   }, [avgVisible]);
@@ -78,7 +78,7 @@ const AnimatedGraph: React.FC<Props> = ({
     <Wrap>
       <BarChart
         animate
-        animationDuration={1000}
+        animationDuration={800}
         spacingInner={0.9}
         style={{ height: 200, marginHorizontal: 20 }}
         data={datas}

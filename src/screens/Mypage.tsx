@@ -1,8 +1,10 @@
 import React from 'react';
 import { Animated } from 'react-native';
 import styled from 'styled-components/native';
-import LottieView from 'lottie-react-native';
 import _compact from 'lodash/compact';
+import { useSelector } from 'react-redux';
+import { RootReducerType } from 'store';
+import { AppStateType } from 'store/app/state';
 
 import {
   AnimatedGraph,
@@ -126,6 +128,12 @@ const Mypage: React.FC = () => {
 
   const [datas, setDatas] = React.useState(zeroDatas);
   const [lineDatas, setLineDatas] = React.useState(zeroDatas);
+  const [horizintalGraphVisible, setHorizintalGraphVisible] = React.useState(
+    false,
+  );
+  const { currentTabIndex } = useSelector<RootReducerType, AppStateType>(
+    state => state.appState,
+  );
 
   const [lineGraphInfo, setLineGraphInfo] = React.useState<{
     stroke: string;
@@ -138,21 +146,31 @@ const Mypage: React.FC = () => {
   });
 
   React.useEffect(() => {
-    setTimeout(() => {
+    if (currentTabIndex === 2 && _compact(datas).length === 0) {
       setDatas(newDatas);
-    }, 4000);
-    setTimeout(() => {
+    }
+  }, [currentTabIndex]);
+
+  React.useEffect(() => {
+    if (_compact(datas) && _compact(datas).length > 0) {
       setLineGraphInfo({
         stroke: '#00aef2',
         position: 'absolute',
         height: 200,
       });
+
       setLineDatas(newDatas);
-    }, 5000);
-  }, []);
+      setTimeout(() => {
+        setHorizintalGraphVisible(true);
+      }, 1500);
+    }
+  }, [datas]);
+
+  const isVisibleHorizontalGraph =
+    _compact(lineDatas) && _compact(lineDatas).length > 0;
 
   React.useEffect(() => {
-    if (_compact(lineDatas) && _compact(lineDatas).length > 0) {
+    if (isVisibleHorizontalGraph) {
       Animated.loop(
         Animated.sequence([
           Animated.timing(right, {
@@ -233,7 +251,9 @@ const Mypage: React.FC = () => {
         <Title>제일많은 소비</Title>
         <BoldTitle>육아용품</BoldTitle>
       </ColView>
-      <HorizontalAnimatedBar expeditures={expeditures} />
+      {horizintalGraphVisible && (
+        <HorizontalAnimatedBar expeditures={expeditures} />
+      )}
     </Wrap>
   );
 };

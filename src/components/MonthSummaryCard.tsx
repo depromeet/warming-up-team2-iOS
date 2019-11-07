@@ -4,10 +4,10 @@ import styled from 'styled-components/native';
 
 import AnimtedText from './AnimtedText';
 
-const Wrap = styled(Animated.View)<{ width: number }>`
+const Wrap = styled(Animated.View)<{ width: number; selected: boolean }>`
   height: 100%;
   border-radius: 10px;
-  background-color: #00aef2;
+  background-color: ${({ selected }) => (selected ? '#00aef2' : '#bbbbbb')};
   padding: 0 16px;
   justify-content: space-evenly;
 `;
@@ -15,6 +15,7 @@ const Wrap = styled(Animated.View)<{ width: number }>`
 interface Props {
   item: any;
   width: Animated.AnimatedInterpolation;
+  selected: boolean;
 }
 
 const MonthText = styled(AnimtedText)`
@@ -45,7 +46,7 @@ const DurationText = styled(AnimtedText)`
 
 const TextView = styled.View``;
 
-const MonthSummaryCard: React.FC<Props> = ({ width, item }) => {
+const MonthSummaryCard: React.FC<Props> = ({ width, item, selected }) => {
   const monthSize = width.interpolate({
     inputRange: [90 * (260 / 128), 260, 280],
     outputRange: [11, 12, 15],
@@ -77,7 +78,7 @@ const MonthSummaryCard: React.FC<Props> = ({ width, item }) => {
   });
 
   return (
-    <Wrap style={{ width }}>
+    <Wrap style={{ width }} selected={selected}>
       <MonthText style={{ fontSize: monthSize, lineHeight: monthLineHeight }}>
         {item.month}
       </MonthText>

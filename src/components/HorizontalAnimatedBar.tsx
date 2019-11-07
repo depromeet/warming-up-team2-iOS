@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated } from 'react-native';
+import { Animated, InteractionManager } from 'react-native';
 import styled from 'styled-components/native';
 import { Bar } from 'react-native-progress';
 
@@ -67,21 +67,14 @@ const HorizontalAnimatedBar: React.FC<Props> = ({ expeditures }) => {
   const opacity = new Animated.Value(0);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setProgress(1);
-    }, 5900);
-  }, []);
-
-  React.useEffect(() => {
-    if (progress === 0) {
-      return;
-    }
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 800,
-      delay: 1000,
-    }).start();
-  }, [progress]);
+    setProgress(1);
+    InteractionManager.runAfterInteractions(() => {
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 800,
+      }).start();
+    });
+  });
 
   return (
     <Wrap>
