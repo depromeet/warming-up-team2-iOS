@@ -869,6 +869,11 @@
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+"@react-native-community/async-storage@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.6.2.tgz#a19ca7149c4dfe8216f2330e6b1ebfe2d075ef92"
+  integrity sha512-EJGsbrHubK1mGxPjWB74AaHAd5m9I+Gg2RRPZzMK6org7QOU9WOBnIMFqoeVto3hKOaEPlk8NV74H6G34/2pZQ==
+
 "@react-native-community/cli-platform-android@^3.0.0-alpha.1", "@react-native-community/cli-platform-android@^3.0.0-alpha.7":
   version "3.0.0-alpha.7"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-platform-android/-/cli-platform-android-3.0.0-alpha.7.tgz#03c3671ab72b62a8742aa71b66cb8d594171891f"
@@ -6065,6 +6070,11 @@ react-native-modal@^11.5.1:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
+
+react-native-permissions@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.3.tgz#b6da83e5e313e41ba5f70ff2c4567291766b0140"
+  integrity sha512-8pd+UhyphAiFGzBil5d5pDxRf/rH+20SzDNu9cFnCtoD2MbYTVH7GjXsxaZ2lPsmwrqYYbF8FBfwmncKf/G1+Q==
 
 react-native-platform-touchable@^1.1.1:
   version "1.1.1"
