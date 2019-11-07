@@ -1,14 +1,23 @@
 import axios from 'libs/axios';
 import { Dispatch } from 'redux';
-import { ActionType, ExpenditureWriteType } from 'types';
 
-export const requestLogin = (
-  expenditureData: ExpenditureWriteType,
-) => async () => {
+import { SET_EXPENDITUR_INFO } from './state';
+import { RootReducerType } from '../';
+
+export const requestPost = () => async (
+  dispatch: Dispatch,
+  getState: () => RootReducerType,
+) => {
   try {
+    const { writingExpenditure } = getState().expenditureState;
+    const newWritingExpenditure = {
+      ...writingExpenditure,
+      amountOfMoney: parseInt(writingExpenditure.amountOfMoney, 10),
+    };
+
     const {
       data: { data },
-    } = await axios.post('/expenditures', expenditureData);
+    } = await axios.post('/expenditures', newWritingExpenditure);
     console.log('data', data);
     return data;
   } catch (error) {
@@ -17,12 +26,7 @@ export const requestLogin = (
   }
 };
 
-export const requestLogin2 = (accessToken: string) => async (
-  dispatch: Dispatch<ActionType>,
-) => {
-  // const { data } = await axios.post('/login', { accessToken });
-  // console.log('data', data);
-  // // setAuthorization(data.accessToken);
-  // // dispatch({type: ""})
-  // return data;
-};
+export const setExpenditureInfo = (key: string, value: number | string) => ({
+  type: SET_EXPENDITUR_INFO,
+  payload: { key, value },
+});

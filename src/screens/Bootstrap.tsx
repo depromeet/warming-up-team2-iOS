@@ -39,8 +39,8 @@ const Bootstrap: NavigationStackScreenComponent = ({ navigation }) => {
     dispatch(AuthActions.getMe());
 
     if (skip === 'true') {
-      // navigation.navigate('Home');
-      navigation.navigate('RegistCode');
+      navigation.navigate('Home');
+      // navigation.navigate('RegistCode');
       return;
     }
 

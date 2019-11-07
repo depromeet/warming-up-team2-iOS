@@ -5,6 +5,8 @@ import { setItem, USER_TOKEN } from 'libs/storage';
 
 import { SET_USER_INFO } from './state';
 
+// memer 도메인도 함께 추가
+
 export const getMe = () => async (dispatch: Dispatch<ActionType>) => {
   try {
     const {
@@ -35,6 +37,23 @@ export const requestLogin = (accessToken: string) => async (
     dispatch(getMe());
     return data.accessToken;
   } catch (error) {
+    console.log('error', error);
+    return null;
+  }
+};
+
+export const requestConnect = (connectionCode: string) => async (
+  dispatch: Dispatch<any>,
+) => {
+  try {
+    const {
+      data: { data },
+    } = await axios.post('/members/me/connect', { connectionCode });
+    console.log('data', data);
+    dispatch(getMe());
+    return data;
+  } catch (error) {
+    alert('연동코드가 잘못 됐습니다');
     console.log('error', error);
     return null;
   }

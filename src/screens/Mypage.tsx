@@ -2,10 +2,11 @@ import React from 'react';
 import { Animated } from 'react-native';
 import styled from 'styled-components/native';
 import _compact from 'lodash/compact';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootReducerType } from 'store';
 import { AppStateType } from 'store/app/state';
 
+import * as AuthActions from 'store/auth/actions';
 import {
   AnimatedGraph,
   HorizontalAnimatedBar,
@@ -14,6 +15,8 @@ import {
   Touchable,
 } from 'components';
 import { MYPAGE_IMG } from 'libs/icons';
+import { AuthStateType } from 'store/auth/state';
+import { DEVICE_WIDTH } from 'libs/styleUtils';
 
 const Wrap = styled.ScrollView.attrs({
   contentContainerStyle: { paddingBottom: 30 },
@@ -109,7 +112,7 @@ const SimpleConnectText = styled(Text)`
 `;
 
 const StyledSingleTextInput = styled(SingleLineTextInput)`
-  width: 17 4px;
+  width: ${DEVICE_WIDTH * 0.48}px;
 `;
 
 const MyPageGIF = styled.Image.attrs({
@@ -125,7 +128,12 @@ const Mypage: React.FC = () => {
   const newDatas = [80, 54, 89, 90, 0, 0];
   const expeditures = [200, 150, 90];
   const right = new Animated.Value(0);
+  const { userInfo } = useSelector<RootReducerType, AuthStateType>(
+    state => state.authState,
+  );
+  const dispatch = useDispatch();
 
+  const [connectionCode, setConnectionCode] = React.useState('');
   const [datas, setDatas] = React.useState(zeroDatas);
   const [lineDatas, setLineDatas] = React.useState(zeroDatas);
   const [horizintalGraphVisible, setHorizintalGraphVisible] = React.useState(
@@ -189,8 +197,16 @@ const Mypage: React.FC = () => {
     }
   });
 
+  const onChangeConnectText = (text: string) => {
+    setConnectionCode(text);
+  };
+
+  const onPressRequestConnect = () => {
+    dispatch(AuthActions.requestConnect(connectionCode));
+  };
+
   const renderHeader = () => {
-    const connected = true;
+    const connected = userInfo.status === 'COUPLE';
     if (connected) {
       return (
         <TitleView>
@@ -221,10 +237,10 @@ const Mypage: React.FC = () => {
         <ConnectRowView>
           <ConnectBoldText>배우자 코드</ConnectBoldText>
           <StyledSingleTextInput
-            onChangeText={() => {}}
+            onChangeText={onChangeConnectText}
             placeholder="코드를 입력해주세요"
           />
-          <ConnectButton onPress={() => {}}>
+          <ConnectButton onPress={onPressRequestConnect}>
             <SimpleConnectText>연동</SimpleConnectText>
           </ConnectButton>
         </ConnectRowView>

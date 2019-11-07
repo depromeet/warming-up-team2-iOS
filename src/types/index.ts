@@ -20,6 +20,8 @@ export interface ExpenditureWriteType {
   category: string;
   description: string;
   title: string;
+  expendedAt: string;
+  paymentMethod: string;
 }
 
 export interface getMeType {
@@ -27,5 +29,6 @@ export interface getMeType {
   id: number;
   name: string;
   profileImageUrl: string | null;
+  spouseName: string;
   status: 'SOLO' | 'COUPLE';
 }

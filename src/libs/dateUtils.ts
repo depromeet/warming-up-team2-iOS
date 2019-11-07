@@ -9,6 +9,10 @@ export const formatDatesDot = (date: Date) => {
   return format(date, 'yyyy.MM.dd');
 };
 
+export const formatDatesDash = (date: Date) => {
+  return format(date, 'yyyy-MM-dd');
+};
+
 export const formatDatesDay = (date: Date) => {
   return format(date, 'dd일 iiii', { locale: ko });
 };

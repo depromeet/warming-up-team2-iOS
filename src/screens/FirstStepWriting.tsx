@@ -10,9 +10,10 @@ import DateTimePicker, {
 import Modal from 'react-native-modal';
 import _isEmpty from 'lodash/isEmpty';
 
+import * as ExpenditureActions from 'store/expenditure/actions';
 import * as NavigationService from 'libs/NavigationService';
 import colors from 'libs/colors';
-import { formatDates } from 'libs/dateUtils';
+import { formatDates, formatDatesDash } from 'libs/dateUtils';
 import {
   ScreenWrap,
   Text,
@@ -21,6 +22,9 @@ import {
   Touchable,
   TagViews,
 } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducerType } from 'store';
+import { ExpenditureType } from 'store/expenditure/state';
 
 const Wrap = styled(KeyboardAwareScrollView)`
   flex: 1;
@@ -94,6 +98,10 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
   const [dateTimeFocused, setDateTimeFocused] = React.useState(false);
   const [uploadTime, setUploadTime] = React.useState(new Date());
   const { register, setValue, handleSubmit, errors } = useForm();
+  const dispatch = useDispatch();
+  const { writingExpenditure } = useSelector<RootReducerType, ExpenditureType>(
+    state => state.expenditureState,
+  );
 
   React.useEffect(() => {
     if (!_isEmpty(errors)) {
@@ -127,8 +135,33 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
 
   const onDateChange = (event: AndroidEvent, date?: Date) => {
     if (date) {
+      dispatch(
+        ExpenditureActions.setExpenditureInfo(
+          'expendedAt',
+          formatDatesDash(date),
+        ),
+      );
       setUploadTime(date);
     }
+  };
+
+  const onChagneText = (type: string) => (text: string) => {
+    dispatch(
+      ExpenditureActions.setExpenditureInfo(type, text.replace(/,/gi, '')),
+    );
+    setValue(type, text);
+  };
+
+  const getLocaleValue = () => {
+    const value = parseInt(
+      writingExpenditure.amountOfMoney,
+      10,
+    ).toLocaleString();
+    if (value === 'NaN') {
+      return '';
+    }
+
+    return value;
   };
 
   return (
@@ -136,24 +169,25 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
       <Wrap>
         <TextView>
           <StyledSingleLineTextInput
-            ref={register({ name: 'contents' }, { required: true })}
+            ref={register({ name: 'title' }, { required: true })}
             autoFocus
             placeholder="내역"
             title="어느곳에 지출하셨나요"
             tailText="에 지출"
             returnKeyType="done"
-            onChangeText={text => setValue('contents', text)}
+            onChangeText={onChagneText('title')}
           />
         </TextView>
         <TextView>
           <StyledSingleLineTextInput
-            ref={register({ name: 'expenditure' }, { required: true })}
+            ref={register({ name: 'amountOfMoney' }, { required: true })}
             placeholder="0"
             title="얼마를 지출하셨나요"
             tailText="원"
             returnKeyType="done"
             keyboardType="numeric"
-            onChangeText={text => setValue('expenditure', text)}
+            onChangeText={onChagneText('amountOfMoney')}
+            value={getLocaleValue()}
           />
         </TextView>
         <TextView>
@@ -178,7 +212,12 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
             multiple={false}
             tags={['카드', '현금']}
             onSelect={selected => {
-              console.log('selected', selected);
+              dispatch(
+                ExpenditureActions.setExpenditureInfo(
+                  'paymentMethod',
+                  selected,
+                ),
+              );
             }}
           />
         </TextView>

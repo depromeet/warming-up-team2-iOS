@@ -2,8 +2,9 @@ import React from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import styled from 'styled-components/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import * as AuthActions from 'store/auth/actions';
 import * as NavigationService from 'libs/NavigationService';
 import { setItem, SKIP_REGIST_CODE } from 'libs/storage';
 import colors from 'libs/colors';
@@ -12,6 +13,8 @@ import { IMG_CHA_3, IMG_BG_CHA } from 'libs/icons';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
 import { RootReducerType } from 'store';
 import { AuthStateType } from 'store/auth/state';
+
+type Dispatch = (action: any) => Promise<any>;
 
 const IMAGE_HEIGHT = DEVICE_WIDTH * 0.5;
 
@@ -72,12 +75,24 @@ const ButtonsView = styled.View`
 `;
 
 const RegistCode: NavigationStackScreenComponent = () => {
+  const [spouseCode, setSpouseCode] = React.useState('');
   const { userInfo } = useSelector<RootReducerType, AuthStateType>(
     state => state.authState,
   );
+  const dispatch: Dispatch = useDispatch();
   const onPressLater = () => {
     setItem(SKIP_REGIST_CODE, 'true');
     NavigationService.navigate('Home');
+  };
+  const onChangeSpouseCode = (text: string) => {
+    setSpouseCode(text);
+  };
+  const onPressDone = async () => {
+    const result = await dispatch(AuthActions.requestConnect(spouseCode));
+    if (result) {
+      setItem(SKIP_REGIST_CODE, 'true');
+      NavigationService.navigate('Home');
+    }
   };
 
   return (
@@ -110,12 +125,16 @@ const RegistCode: NavigationStackScreenComponent = () => {
               isRow
               autoFocus
               title="배우자 코드"
-              onChangeText={() => {}}
+              onChangeText={onChangeSpouseCode}
               returnKeyType="done"
             />
             <ButtonsView>
               <StyledMainButton title="나중에 할래요" onPress={onPressLater} />
-              <StyledMainButton primary title="시작하기" onPress={() => {}} />
+              <StyledMainButton
+                primary
+                title="시작하기"
+                onPress={onPressDone}
+              />
             </ButtonsView>
           </Body>
         </Wrap>

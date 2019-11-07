@@ -6,7 +6,7 @@ import Text from './Text';
 
 interface Props {
   tags: string[];
-  onSelect: (selected: string[]) => void;
+  onSelect: (selected: string) => void;
   multiple?: boolean;
 }
 
@@ -47,7 +47,7 @@ const TagViews: React.FC<Props> = ({ tags, onSelect, multiple = true }) => {
     }
 
     setSelected([tag]);
-    onSelect([tag]);
+    onSelect(tag);
   };
 
   return (

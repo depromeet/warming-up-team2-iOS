@@ -3,6 +3,7 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styled from 'styled-components/native';
 
+import * as ExpenditureActions from 'store/expenditure/actions';
 import colors from 'libs/colors';
 import {
   ScreenWrap,
@@ -12,6 +13,7 @@ import {
   MultiLineTextInput,
   MainButton,
 } from 'components';
+import { useDispatch } from 'react-redux';
 
 const Wrap = styled(KeyboardAwareScrollView)`
   flex: 1;
@@ -64,9 +66,15 @@ const BottomButton = styled(MainButton)`
 `;
 
 const SecondStepWriting: NavigationStackScreenComponent = () => {
+  const dispatch = useDispatch();
   const onPressDone = () => {
     // NavigationService.navigate('SecStep');
+    dispatch(ExpenditureActions.requestPost());
     console.log('onPressDone');
+  };
+
+  const onChnageDesc = (text: string) => {
+    dispatch(ExpenditureActions.setExpenditureInfo('description', text));
   };
 
   return (
@@ -81,7 +89,9 @@ const SecondStepWriting: NavigationStackScreenComponent = () => {
             multiple={false}
             tags={['생활용품', '육아용품', '문화', '건강']}
             onSelect={selected => {
-              console.log('selected', selected);
+              dispatch(
+                ExpenditureActions.setExpenditureInfo('category', selected),
+              );
             }}
           />
         </TextView>
@@ -91,7 +101,7 @@ const SecondStepWriting: NavigationStackScreenComponent = () => {
             <ImageUploader />
             <StyledMultiLineTextInput
               placeHolder="최대 200자까지 작성가능합니다"
-              onChangeText={() => {}}
+              onChangeText={onChnageDesc}
               maxLength={200}
             />
           </ImageUploadInnerView>
