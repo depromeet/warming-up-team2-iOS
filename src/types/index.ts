@@ -14,3 +14,18 @@ export type IconType = FC<IconProps>;
 export interface ActionType extends AnyAction {
   payload: { [key: string]: any };
 }
+
+export interface ExpenditureWriteType {
+  amountOfMoney: number;
+  category: string;
+  description: string;
+  title: string;
+}
+
+export interface getMeType {
+  connectionCode: string;
+  id: number;
+  name: string;
+  profileImageUrl: string | null;
+  status: 'SOLO' | 'COUPLE';
+}

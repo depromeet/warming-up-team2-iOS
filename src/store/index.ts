@@ -3,13 +3,16 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import AppState, { AppStateType } from './app/state';
+import AuthState, { AuthStateType } from './auth/state';
 
 export interface RootReducerType {
   appState: AppStateType;
+  authState: AuthStateType;
 }
 
 const rootReducer = combineReducers<RootReducerType>({
   appState: AppState,
+  authState: AuthState,
 });
 
 export default createStore(

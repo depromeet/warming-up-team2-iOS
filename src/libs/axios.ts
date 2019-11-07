@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-const API_BASE_URL: string = 'https://check.depromeet.com/api';
+const API_BASE_URL: string = 'http://booboo.depromeet.com/api';
 
 let instance: AxiosInstance | null = null;
 

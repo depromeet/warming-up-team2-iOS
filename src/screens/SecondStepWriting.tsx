@@ -79,7 +79,7 @@ const SecondStepWriting: NavigationStackScreenComponent = () => {
           </RowView>
           <TagViews
             multiple={false}
-            tags={['육아용품', '유흥', '식비', '기타']}
+            tags={['생활용품', '육아용품', '문화', '건강']}
             onSelect={selected => {
               console.log('selected', selected);
             }}

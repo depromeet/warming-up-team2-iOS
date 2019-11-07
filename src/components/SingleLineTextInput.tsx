@@ -51,6 +51,8 @@ interface Props {
   placeholder?: string;
   keyboardType?: KeyboardType;
   ref: any;
+  editable?: boolean;
+  value?: string;
 }
 
 const SingleLineTextInput: React.FC<Props> = ({
@@ -58,6 +60,7 @@ const SingleLineTextInput: React.FC<Props> = ({
   onChangeText,
   isRow = false,
   isLight = false,
+  editable = true,
   title,
   maxLength,
   style,
@@ -66,6 +69,7 @@ const SingleLineTextInput: React.FC<Props> = ({
   tailText,
   keyboardType,
   ref,
+  value,
 }) => {
   const defaultStyle = Platform.select({
     ios: {
@@ -107,6 +111,8 @@ const SingleLineTextInput: React.FC<Props> = ({
         placeholder={placeholder}
         placeholderTextColor="#b7b7b7"
         keyboardType={keyboardType}
+        editable={editable}
+        value={value}
       />
       {tailText && <Tail>{tailText}</Tail>}
     </Wrap>

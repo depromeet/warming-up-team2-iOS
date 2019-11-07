@@ -47,6 +47,7 @@ const Paycategory = styled(Text)`
 const ExpenditureAmount = styled(Text)`
   font-size: 18px;
   color: #191919;
+  line-height: 24px;
 `;
 
 const Date = styled(Text)`

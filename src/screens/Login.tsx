@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import { useDispatch } from 'react-redux';
 import KakaoLogins, { ITokenInfo } from '@react-native-seoul/kakao-login';
 import styled from 'styled-components/native';
+import { getItem, SKIP_REGIST_CODE } from 'libs/storage';
 
+import * as AuthActions from 'store/auth/actions';
 import * as NavigationService from 'libs/NavigationService';
 import colors from 'libs/colors';
 import { ScreenWrap, Touchable } from 'components';
@@ -42,15 +45,25 @@ const CenterView = styled.View`
 `;
 
 const Login: NavigationStackScreenComponent = () => {
+  const dispatch = useDispatch();
   const onPressLogin = () => {
-    KakaoLogins.login((err?: Error, result?: ITokenInfo) => {
+    KakaoLogins.login(async (err?: Error, result?: ITokenInfo) => {
       if (err) {
         console.log('login error', err);
         return;
       }
       if (result) {
-        console.log('result', result);
-        NavigationService.replace('Home');
+        const token = await dispatch(
+          AuthActions.requestLogin(result.accessToken),
+        );
+        const skip = await getItem(SKIP_REGIST_CODE);
+        if (token) {
+          if (skip === 'true') {
+            NavigationService.replace('Home');
+            return;
+          }
+          NavigationService.replace('RegistCode');
+        }
       }
     });
   };

@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Animated from 'react-native-reanimated';
+import FastImage from 'react-native-fast-image';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { TabView, SceneMap, NavigationState } from 'react-native-tab-view';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as AppActions from 'store/app/actions';
 import * as NavigationService from 'libs/NavigationService';
+import { RootReducerType } from 'store';
+import { AuthStateType } from 'store/auth/state';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
 import { ScreenWrap, Touchable } from 'components';
 import { IC_MYPAGE, IC_EDIT } from 'libs/icons';
@@ -36,6 +39,12 @@ const MyPageImage = styled.Image.attrs({ source: IC_MYPAGE })`
   height: 40px;
 `;
 
+const UserImage = styled(FastImage)`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+`;
+
 const WriteButton = styled(Touchable)`
   width: 60px;
   height: 60px;
@@ -55,6 +64,9 @@ const EditIcon = styled.Image.attrs({ source: IC_EDIT })`
 
 export const Home: NavigationStackScreenComponent = () => {
   const dispatch = useDispatch();
+  const { userInfo } = useSelector<RootReducerType, AuthStateType>(
+    state => state.authState,
+  );
   const [graphViewVisited, setGraphViewVisited] = React.useState(false);
   const [scrollEnabled, setScrollEnabled] = React.useState(true);
   const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
@@ -120,7 +132,12 @@ export const Home: NavigationStackScreenComponent = () => {
           if (i === 2) {
             return (
               <MypageButton onPress={() => onChangeTabIndex(i)} key={route.key}>
-                <MyPageImage />
+                <>
+                  {!userInfo.profileImageUrl && <MyPageImage />}
+                  {userInfo.profileImageUrl && (
+                    <UserImage source={{ uri: userInfo.profileImageUrl }} />
+                  )}
+                </>
               </MypageButton>
             );
           }
