@@ -38,10 +38,8 @@ export const uplaodImage = (id: string) => async (
     const {
       data: { data },
     } = await axios.post(`/expenditures/${id}/upload-image`, formData, config);
-    console.log('data', data);
   } catch (error) {
-    console.log('error', error.message);
-    console.log('error', JSON.stringify(error));
+    console.log('error', error);
   }
 };
 
@@ -89,7 +87,6 @@ export const fetchExpendituresCategory = () => async (
       data: { data },
     } = await axios.get('/categories?format=graph');
 
-    console.log('categoriesGraph', data);
     // dispatch({
     //   type: FETCH_EXPENDITURE_GRAPH,
     //   payload: { expenditureGraph: data },
@@ -115,12 +112,9 @@ export const requestPost = () => async (
 
     delete newWritingExpenditure.imageUrl;
 
-    console.log('newWritingExpenditure', newWritingExpenditure);
-
     const {
       data: { data },
     } = await axios.post('/expenditures', newWritingExpenditure);
-    console.log('data', data);
     await dispatch(uplaodImage(data.id));
     dispatch(fetchExpenditures());
     return data;

@@ -8,10 +8,8 @@ export const getMe = () => async () => {
     const {
       data: { data },
     } = await axios.get('/members/me');
-    console.log('data', data);
     return data;
   } catch (error) {
-    console.log('error', error);
     return null;
   }
 };
@@ -30,7 +28,6 @@ export const requestLogin = (accessToken: string) => async (
 
     return data.accessToken;
   } catch (error) {
-    console.log('error', error);
     return null;
   }
 };

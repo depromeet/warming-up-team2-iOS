@@ -12,7 +12,6 @@ export const requestLogin = (accessToken: string) => async () => {
     setItem(USER_TOKEN, data.accessToken);
     return data.accessToken;
   } catch (error) {
-    console.log('error', error);
     return null;
   }
 };
@@ -21,7 +20,6 @@ export const requestLogin2 = (accessToken: string) => async (
   dispatch: Dispatch<ActionType>,
 ) => {
   const { data } = await axios.post('/login', { accessToken });
-  console.log('data', data);
   // setAuthorization(data.accessToken);
   // dispatch({type: ""})
   return data;

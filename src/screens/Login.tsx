@@ -58,7 +58,6 @@ const Login: NavigationStackScreenComponent = () => {
     setLoading(true);
     KakaoLogins.login(async (err?: Error, result?: ITokenInfo) => {
       if (err) {
-        console.log('login error', err);
         setLoading(false);
         return;
       }

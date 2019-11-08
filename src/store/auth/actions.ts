@@ -20,7 +20,6 @@ export const getMe = () => async (dispatch: Dispatch<ActionType>) => {
     });
     return data;
   } catch (error) {
-    console.log('error', error);
     return null;
   }
 };
@@ -37,7 +36,6 @@ export const requestLogin = (accessToken: string) => async (
     dispatch(getMe());
     return data.accessToken;
   } catch (error) {
-    console.log('error', error);
     return null;
   }
 };
@@ -49,12 +47,10 @@ export const requestConnect = (connectionCode: string) => async (
     const {
       data: { data },
     } = await axios.post('/members/me/connect', { connectionCode });
-    console.log('data', data);
     dispatch(getMe());
     return data;
   } catch (error) {
     alert('연동코드가 잘못 됐습니다');
-    console.log('error', error);
     return null;
   }
 };

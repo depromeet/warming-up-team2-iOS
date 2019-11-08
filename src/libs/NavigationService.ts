@@ -51,6 +51,5 @@ export function dispatchNavigation(action: NavigationNavigateAction) {
 }
 
 export function registerAppContainer(container: NavigationContainerComponent) {
-  console.log('registerAppContainer');
   dispatch = container.dispatch;
 }
