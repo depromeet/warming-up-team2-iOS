@@ -1,4 +1,5 @@
 import * as Animatable from 'react-native-animatable';
+import { Animated } from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
 import _compact from 'lodash/compact';
@@ -40,6 +41,7 @@ const AnimatedGraph: React.FC<Props> = ({
   const handleViewRef = React.useRef<any>(null);
   const handleAvgViewRef = React.useRef<any>(null);
   const [avgVisible, setAvgVisible] = React.useState(false);
+  const opacity = new Animated.Value(0);
   const Gradient = () => (
     <Defs key="gradient">
       <LinearGradient id="gradient" x1="0%" x2="0%" y2="100%">
@@ -52,7 +54,11 @@ const AnimatedGraph: React.FC<Props> = ({
   React.useEffect(() => {
     if (_compact(lineDatas) && _compact(lineDatas).length > 0) {
       if (handleViewRef.current) {
-        handleViewRef.current.fadeIn();
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: 1000,
+          delay: 1000,
+        }).start();
       }
       setTimeout(() => {
         setAvgVisible(true);
@@ -82,9 +88,9 @@ const AnimatedGraph: React.FC<Props> = ({
         contentInset={{ left: 17, right: 17 }}
         svg={{ fontSize: 12, fill: '#454545' }}
       />
-      <Animatable.View
+      <Animated.View
         ref={handleViewRef}
-        style={{ position: lineGraphInfo.position }}
+        style={{ position: lineGraphInfo.position, opacity }}
       >
         <LineChart
           style={{
@@ -96,7 +102,7 @@ const AnimatedGraph: React.FC<Props> = ({
           svg={{ stroke: lineGraphInfo.stroke }}
           contentInset={{ top: 20, bottom: 20, left: 8, right: 8 }}
         />
-      </Animatable.View>
+      </Animated.View>
       {avgVisible && <AvgLine ref={handleAvgViewRef} animation="fadeInLeft" />}
     </Wrap>
   );

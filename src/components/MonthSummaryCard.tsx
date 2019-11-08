@@ -84,7 +84,7 @@ const MonthSummaryCard: React.FC<Props> = ({ width, item, selected }) => {
       </MonthText>
       <TextView>
         <ExpenditureText style={{ lineHeight, fontSize: expenditureSize }}>
-          현재 총
+          {`현재 총 `}
           <BoldExpenditureText
             style={{ lineHeight, fontSize: expenditureSize }}
           >{`${item.expenditure.toLocaleString()}원`}</BoldExpenditureText>
