@@ -46,13 +46,10 @@ const CenterView = styled.View`
   margin-bottom: 30px;
 `;
 
-type Dispatch = (param: any) => Promise<string>;
+type Dispatch = (param: any) => Promise<any>;
 
 const Login: NavigationStackScreenComponent = () => {
   const dispatch: Dispatch = useDispatch();
-  const { userInfo } = useSelector<RootReducerType, AuthStateType>(
-    state => state.authState,
-  );
   const [loading, setLoading] = React.useState(false);
   const onPressLogin = () => {
     setLoading(true);
@@ -65,7 +62,8 @@ const Login: NavigationStackScreenComponent = () => {
         const token = await dispatch(
           AuthActions.requestLogin(result.accessToken),
         );
-        const alreadyConnected = userInfo.status === 'COUPLE';
+        const me = await dispatch(AuthActions.getMe());
+        const alreadyConnected = me.status === 'COUPLE';
         const skip = await getItem(SKIP_REGIST_CODE);
         if (token) {
           if (skip === 'true' || alreadyConnected) {

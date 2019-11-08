@@ -24,16 +24,14 @@ export const getMe = () => async (dispatch: Dispatch<ActionType>) => {
   }
 };
 
-export const requestLogin = (accessToken: string) => async (
-  dispatch: Dispatch<any>,
-) => {
+export const requestLogin = (accessToken: string) => async () => {
   try {
     const {
       data: { data },
     } = await axios.post('/members/login', { accessToken });
     setAuthorization(data.accessToken);
     setItem(USER_TOKEN, data.accessToken);
-    dispatch(getMe());
+
     return data.accessToken;
   } catch (error) {
     return null;

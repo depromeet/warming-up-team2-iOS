@@ -25,8 +25,10 @@ const Wrap = styled.View`
   align-items: center;
 `;
 
+type Dispatch = (actoin: any) => Promise<any>;
+
 const Bootstrap: NavigationStackScreenComponent = ({ navigation }) => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
   const checkAuthStatus = async () => {
     const token = await getItem(USER_TOKEN);
     const skip = await getItem(SKIP_REGIST_CODE);
@@ -36,11 +38,11 @@ const Bootstrap: NavigationStackScreenComponent = ({ navigation }) => {
       return;
     }
     setAuthorization(token);
-    dispatch(AuthActions.getMe());
+    const me = await dispatch(AuthActions.getMe());
+    const connected = me.status === 'COUPLE';
 
-    if (skip === 'true') {
+    if (skip === 'true' || connected) {
       navigation.navigate('Home');
-      // navigation.navigate('RegistCode');
       return;
     }
 
