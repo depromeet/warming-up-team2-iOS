@@ -49,7 +49,7 @@ const ExpenditureText = styled(Text)`
 const DATAS = [
   [
     {
-      title: { date: new Date(), expenditureAmountTotal: 30000 },
+      title: { date: new Date(2019, 9, 1), expenditureAmountTotal: 30000 },
       data: [
         {
           category: '육아',
@@ -68,7 +68,7 @@ const DATAS = [
       ],
     },
     {
-      title: { date: new Date(), expenditureAmountTotal: 35000 },
+      title: { date: new Date(2019, 9, 7), expenditureAmountTotal: 35000 },
       data: [
         {
           category: '육아',
@@ -89,7 +89,7 @@ const DATAS = [
   ],
   [
     {
-      title: { date: new Date(), expenditureAmountTotal: 40000 },
+      title: { date: new Date(2019, 10, 1), expenditureAmountTotal: 40000 },
       data: [
         {
           category: '육아',
@@ -108,7 +108,7 @@ const DATAS = [
       ],
     },
     {
-      title: { date: new Date(), expenditureAmountTotal: 55000 },
+      title: { date: new Date(2019, 10, 10), expenditureAmountTotal: 55000 },
       data: [
         {
           category: '육아',
@@ -127,7 +127,7 @@ const DATAS = [
       ],
     },
     {
-      title: { date: new Date(), expenditureAmountTotal: 55000 },
+      title: { date: new Date(2019, 10, 30), expenditureAmountTotal: 55000 },
       data: [
         {
           category: '육아',
@@ -148,7 +148,7 @@ const DATAS = [
   ],
   [
     {
-      title: { date: new Date(), expenditureAmountTotal: 10000 },
+      title: { date: new Date(2019, 11, 11), expenditureAmountTotal: 10000 },
       data: [
         {
           category: '육아',
@@ -167,7 +167,7 @@ const DATAS = [
       ],
     },
     {
-      title: { date: new Date(), expenditureAmountTotal: 85000 },
+      title: { date: new Date(2019, 11, 17), expenditureAmountTotal: 85000 },
       data: [
         {
           category: '육아',

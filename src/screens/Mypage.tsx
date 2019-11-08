@@ -255,7 +255,7 @@ const Mypage: React.FC = () => {
       <ColView>
         <Title>한달 평균 소비</Title>
         <RowView>
-          <BoldTitle>100,000</BoldTitle>
+          <BoldTitle>90,000</BoldTitle>
           <GrayText>(6개월 기준)</GrayText>
         </RowView>
       </ColView>

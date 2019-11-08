@@ -33,7 +33,7 @@ const BubbleView = styled(AniComponent)`
   border-radius: 35px;
   padding: 4px 5px;
   position: absolute;
-  right: 15%;
+  right: 20%;
   justify-content: center;
   align-items: center;
 `;
@@ -76,7 +76,7 @@ const HorizontalAnimatedBar: React.FC<Props> = ({ expeditures }) => {
   return (
     <Wrap>
       <BubbleView animation="fadeIn" delay={800}>
-        <BubbleText>-100,000원</BubbleText>
+        <BubbleText>-95,000원</BubbleText>
         <Triangle />
       </BubbleView>
 
