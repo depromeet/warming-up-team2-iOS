@@ -32,7 +32,7 @@ export const uplaodImage = (id: string) => async (
     formData.append('file', {
       uri: writingExpenditure.imageUrl,
       name: `user-upload-image- ${new Date().toISOString}`,
-      type: 'images/png',
+      type: 'image/png',
     });
 
     const {
