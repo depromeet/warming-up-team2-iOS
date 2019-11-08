@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import KakaoLogins, { ITokenInfo } from '@react-native-seoul/kakao-login';
 import styled from 'styled-components/native';
 import { getItem, SKIP_REGIST_CODE } from 'libs/storage';
@@ -11,8 +11,6 @@ import colors from 'libs/colors';
 import { ScreenWrap, Touchable, LoadingCover } from 'components';
 import { IMG_LOGIN, IMG_BT_LOGIN, IMG_BG_CHA } from 'libs/icons';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
-import { RootReducerType } from 'store';
-import { AuthStateType } from 'store/auth/state';
 
 const IMAGE_HEIGHT = DEVICE_WIDTH * 0.5;
 
