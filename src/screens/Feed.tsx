@@ -2,7 +2,8 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { useSelector } from 'react-redux';
-import { RootReducerType } from 'types';
+import { RootReducerType } from 'store';
+import { ExpenditureResultType } from 'types';
 
 import { selectExpenditureList } from 'store/ExpenditureEntities/selectors';
 import { Text, DetailCard, Touchable, SimpleCard } from 'components';
@@ -44,7 +45,7 @@ interface Data {
 }
 
 const Feed: React.FC = () => {
-  const expenditureList = useSelector<RootReducerType, any>(
+  const expenditureList = useSelector<RootReducerType, ExpenditureResultType[]>(
     selectExpenditureList,
   );
   const [isDetailMode, setDetailMode] = React.useState(true);
@@ -96,4 +97,4 @@ const Feed: React.FC = () => {
   );
 };
 
-export default Feed;
+export default React.memo(Feed);

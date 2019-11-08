@@ -294,4 +294,4 @@ const AccountBook: React.FC = () => {
   );
 };
 
-export default AccountBook;
+export default React.memo(AccountBook);

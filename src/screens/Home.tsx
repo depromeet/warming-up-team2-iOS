@@ -160,15 +160,24 @@ export const Home: NavigationStackScreenComponent = () => {
     NavigationService.navigate('FirstStep');
   };
 
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+      case 'feed':
+        return <Feed />;
+      case 'accountBook':
+        return <AccountBook />;
+      case 'myPage':
+        return <Mypage />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <ScreenWrap>
       <TabView
         navigationState={{ index: currentTabIndex, routes }}
-        renderScene={SceneMap({
-          feed: Feed,
-          accountBook: AccountBook,
-          myPage: Mypage,
-        })}
+        renderScene={renderScene}
         onIndexChange={onChangeTabIndex}
         initialLayout={{ width: DEVICE_WIDTH }}
         renderTabBar={renderTabBar}

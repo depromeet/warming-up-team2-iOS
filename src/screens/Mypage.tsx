@@ -275,4 +275,4 @@ const Mypage: React.FC = () => {
   );
 };
 
-export default Mypage;
+export default React.memo(Mypage);
