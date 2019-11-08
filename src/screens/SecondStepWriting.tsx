@@ -3,8 +3,10 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styled from 'styled-components/native';
 
+import * as NavigationService from 'libs/NavigationService';
 import * as ExpenditureActions from 'store/expenditure/actions';
 import colors from 'libs/colors';
+import { ExpenditureType } from 'store/expenditure/state';
 import {
   ScreenWrap,
   Text,
@@ -13,7 +15,9 @@ import {
   MultiLineTextInput,
   MainButton,
 } from 'components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducerType } from 'store';
+import { Alert } from 'react-native';
 
 const Wrap = styled(KeyboardAwareScrollView)`
   flex: 1;
@@ -65,12 +69,23 @@ const BottomButton = styled(MainButton)`
   margin: 0 4px;
 `;
 
+type Dispatch = (params: any) => Promise<any>;
+
 const SecondStepWriting: NavigationStackScreenComponent = () => {
-  const dispatch = useDispatch();
-  const onPressDone = () => {
-    // NavigationService.navigate('SecStep');
-    dispatch(ExpenditureActions.requestPost());
-    console.log('onPressDone');
+  const dispatch: Dispatch = useDispatch();
+  const { writingExpenditure } = useSelector<RootReducerType, ExpenditureType>(
+    state => state.expenditureState,
+  );
+  const onPressDone = async () => {
+    if (writingExpenditure.imageUrl.length === 0) {
+      Alert.alert('에러', '사진은 등록해주세요ㅜㅜ');
+      return;
+    }
+
+    const result = await dispatch(ExpenditureActions.requestPost());
+    if (result) {
+      NavigationService.popToPop();
+    }
   };
 
   const onChnageDesc = (text: string) => {
@@ -86,7 +101,7 @@ const SecondStepWriting: NavigationStackScreenComponent = () => {
             <SubText>미선택시 미등록으로 기록됩니다</SubText>
           </RowView>
           <TagViews
-            multiple={false}
+            selected={writingExpenditure.category}
             tags={['생활용품', '육아용품', '문화', '건강']}
             onSelect={selected => {
               dispatch(
@@ -96,13 +111,14 @@ const SecondStepWriting: NavigationStackScreenComponent = () => {
           />
         </TextView>
         <TextView>
-          <TitieText>추억을 기록해보세요!(선택)</TitieText>
+          <TitieText>추억을 기록해보세요!</TitieText>
           <ImageUploadInnerView>
             <ImageUploader />
             <StyledMultiLineTextInput
               placeHolder="최대 200자까지 작성가능합니다"
               onChangeText={onChnageDesc}
               maxLength={200}
+              value={writingExpenditure.description}
             />
           </ImageUploadInnerView>
         </TextView>

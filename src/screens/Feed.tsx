@@ -1,7 +1,10 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
+import { useSelector } from 'react-redux';
+import { RootReducerType } from 'types';
 
+import { selectExpenditureList } from 'store/ExpenditureEntities/selectors';
 import { Text, DetailCard, Touchable, SimpleCard } from 'components';
 import { IMG_CHA_4, IC_FOUR_SQ, IC_ONE_SQ } from 'libs/icons';
 
@@ -40,40 +43,10 @@ interface Data {
   id: number;
 }
 
-// TODO: 데이터 타입 정의
-const DummyDatas = [
-  {
-    id: 0,
-    image: 'https://via.placeholder.com/350',
-    paycategory: '카드',
-    expenditureTitle: '남편과 데이트1',
-    description:
-      '남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1',
-    expenditureAmount: 3000,
-    createdAt: new Date(),
-  },
-  {
-    id: 1,
-    image: 'https://via.placeholder.com/350',
-    paycategory: '카드',
-    description:
-      '남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1',
-    expenditureAmount: 35000,
-    createdAt: new Date(),
-  },
-  {
-    id: 2,
-    image: 'https://via.placeholder.com/350',
-    paycategory: '현금',
-    description:
-      '남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1남편과 데이트1',
-    expenditureTitle: '남편과 데이트3',
-    expenditureAmount: 50000,
-    createdAt: new Date(),
-  },
-];
-
 const Feed: React.FC = () => {
+  const expenditureList = useSelector<RootReducerType, any>(
+    selectExpenditureList,
+  );
   const [isDetailMode, setDetailMode] = React.useState(true);
   const onPressSquareButton = () => {
     setDetailMode(!isDetailMode);
@@ -105,7 +78,7 @@ const Feed: React.FC = () => {
       </Button>
       <StyledFlatList
         key={isDetailMode ? 1 : 2}
-        data={DummyDatas}
+        data={expenditureList}
         renderItem={renderItems}
         ListEmptyComponent={renderEmpty}
         numColumns={isDetailMode ? 1 : 2}

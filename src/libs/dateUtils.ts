@@ -16,3 +16,10 @@ export const formatDatesDash = (date: Date) => {
 export const formatDatesDay = (date: Date) => {
   return format(date, 'dd일 iiii', { locale: ko });
 };
+
+export const formatDatesDashfromKO = (dateStr: string) => {
+  return dateStr
+    .replace('년 ', '-')
+    .replace('월 ', '-')
+    .replace('일', '');
+};

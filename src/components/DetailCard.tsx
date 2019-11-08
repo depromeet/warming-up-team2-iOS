@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
+import { Placeholder, PlaceholderMedia, Fade } from 'rn-placeholder';
 
+import { ExpenditureResultType } from 'types';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
-import { formatDatesDot } from 'libs/dateUtils';
+
 import Text from './Text';
 
 const IMAGE_HIEIGHT = DEVICE_WIDTH - 40;
 
-// TODO: 데이터 타입 정의
 interface Props {
-  data: any;
+  data: ExpenditureResultType;
 }
 
 const Wrap = styled.View``;
@@ -51,31 +52,46 @@ const ExpenditureAmount = styled(Text)`
 `;
 
 const Date = styled(Text)`
-  font-size: 12px;
+  font-size: 14px;
   color: #909090;
   margin-bottom: 6px;
 `;
 
 const Desc = styled(Text)`
-  font-size: 12px;
+  font-size: 14px;
   color: #191919;
   margin-bottom: 40px;
+  opacity: 0.8;
 `;
 
 const DetailCard: React.FC<Props> = ({ data }) => {
   return (
     <Wrap>
-      <DiraryImage source={{ uri: data.image }} />
+      {data.imageUrl && <DiraryImage source={{ uri: data.imageUrl }} />}
+      {!data.imageUrl && (
+        <Placeholder
+          Animation={(props: any) => (
+            <Fade {...props} style={{ backgroundColor: '#cbcbcb' }} />
+          )}
+        >
+          <PlaceholderMedia
+            size={DEVICE_WIDTH - 40}
+            style={{ borderRadius: 10, marginBottom: 16 }}
+          />
+        </Placeholder>
+      )}
       <TitleView>
-        <Title>{data.expenditureTitle}</Title>
+        <Title>{data.title}</Title>
         <ExpenditureCategoryView>
-          <Paycategory>{data.paycategory}</Paycategory>
+          <Paycategory>
+            {data.paymentMethod === 'CARD' ? '카드' : '현금'}
+          </Paycategory>
           <ExpenditureAmount>
-            {data.expenditureAmount.toLocaleString()}원
+            {data.amountOfMoney.toLocaleString()}원
           </ExpenditureAmount>
         </ExpenditureCategoryView>
       </TitleView>
-      <Date>{formatDatesDot(data.createdAt)}</Date>
+      <Date>{data.expendedAt.replace(/-/g, '. ')}</Date>
       <Desc>{data.description}</Desc>
     </Wrap>
   );

@@ -18,6 +18,7 @@ interface Props {
   blurOnSubmit?: boolean;
   onChangeText: (text: string) => void;
   placeHolder?: string;
+  value?: string;
 }
 
 const MultiLineTextInput: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const MultiLineTextInput: React.FC<Props> = ({
   maxLength,
   placeHolder,
   isLight = false,
+  value,
 }) => {
   const defaultStyle = Platform.select({
     ios: {
@@ -61,6 +63,7 @@ const MultiLineTextInput: React.FC<Props> = ({
       onFocus={onFocus}
       maxLength={maxLength}
       placeholder={placeHolder}
+      value={value}
     />
   );
 };

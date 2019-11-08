@@ -17,7 +17,7 @@ const Wrap = styled.View`
 
 const CategoryText = styled(Text)`
   color: #00aef2;
-  font-size: 12px;
+  font-size: 13px;
 `;
 
 const Border = styled.View`
@@ -39,11 +39,11 @@ const RowView = styled.View`
 
 const ContentView = styled(Text)`
   color: #000000;
-  font-size: 13px;
+  font-size: 14px;
 `;
 
 const TimeText = styled(Text)`
-  font-size: 10px;
+  font-size: 11px;
   color: #191919;
 `;
 

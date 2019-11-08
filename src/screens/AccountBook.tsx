@@ -53,15 +53,15 @@ const DATAS = [
       data: [
         {
           category: '육아',
-          expenditure: 100000,
+          expenditure: 10000,
           expenditureTitle: '분유',
           date: new Date(),
           payCategory: '카드',
         },
         {
-          category: '유흥',
-          expenditure: 200000,
-          expenditureTitle: '분유',
+          category: '여가',
+          expenditure: 20000,
+          expenditureTitle: '영화',
           date: new Date(),
           payCategory: '현금',
         },
@@ -72,15 +72,15 @@ const DATAS = [
       data: [
         {
           category: '육아',
-          expenditure: 100000,
+          expenditure: 15000,
           expenditureTitle: '분유',
           date: new Date(),
           payCategory: '현금',
         },
         {
-          category: '유흥',
-          expenditure: 200000,
-          expenditureTitle: '분유',
+          category: '육아',
+          expenditure: 20000,
+          expenditureTitle: '젖병',
           date: new Date(),
           payCategory: '카드',
         },
@@ -93,15 +93,15 @@ const DATAS = [
       data: [
         {
           category: '육아',
-          expenditure: 200000,
-          expenditureTitle: '분유2',
+          expenditure: 20000,
+          expenditureTitle: '분유',
           date: new Date(),
           payCategory: '카드',
         },
         {
-          category: '유흥',
-          expenditure: 300000,
-          expenditureTitle: '분유2',
+          category: '육아',
+          expenditure: 20000,
+          expenditureTitle: '분유',
           date: new Date(),
           payCategory: '현금',
         },
@@ -112,15 +112,34 @@ const DATAS = [
       data: [
         {
           category: '육아',
-          expenditure: 400000,
-          expenditureTitle: '분유3',
+          expenditure: 20000,
+          expenditureTitle: '분유',
           date: new Date(),
           payCategory: '현금',
         },
         {
-          category: '유흥',
-          expenditure: 1200000,
-          expenditureTitle: '분유3',
+          category: '문화',
+          expenditure: 35000,
+          expenditureTitle: '영화',
+          date: new Date(),
+          payCategory: '카드',
+        },
+      ],
+    },
+    {
+      title: { date: new Date(), expenditureAmountTotal: 55000 },
+      data: [
+        {
+          category: '육아',
+          expenditure: 10000,
+          expenditureTitle: '해열제',
+          date: new Date(),
+          payCategory: '현금',
+        },
+        {
+          category: '문화',
+          expenditure: 30000,
+          expenditureTitle: '영화',
           date: new Date(),
           payCategory: '카드',
         },
@@ -133,34 +152,55 @@ const DATAS = [
       data: [
         {
           category: '육아',
-          expenditure: 400000,
-          expenditureTitle: '분유4',
+          expenditure: 5000,
+          expenditureTitle: '옷',
           date: new Date(),
           payCategory: '카드',
         },
         {
-          category: '유흥',
-          expenditure: 1200000,
-          expenditureTitle: '분유4',
+          category: '여가',
+          expenditure: 5000,
+          expenditureTitle: '피씨방',
           date: new Date(),
           payCategory: '현금',
         },
       ],
     },
     {
-      title: { date: new Date(), expenditureAmountTotal: 25000 },
+      title: { date: new Date(), expenditureAmountTotal: 85000 },
       data: [
         {
           category: '육아',
-          expenditure: 100000,
-          expenditureTitle: '분유5',
+          expenditure: 15000,
+          expenditureTitle: '귀저기',
           date: new Date(),
           payCategory: '현금',
         },
         {
-          category: '유흥',
-          expenditure: 200000,
-          expenditureTitle: '분유5',
+          category: '육아',
+          expenditure: 30000,
+          expenditureTitle: '신발',
+          date: new Date(),
+          payCategory: '카드',
+        },
+        {
+          category: '여가',
+          expenditure: 10000,
+          expenditureTitle: '노래방',
+          date: new Date(),
+          payCategory: '카드',
+        },
+        {
+          category: '여가',
+          expenditure: 10000,
+          expenditureTitle: '피씨방',
+          date: new Date(),
+          payCategory: '카드',
+        },
+        {
+          category: '문화',
+          expenditure: 20000,
+          expenditureTitle: '영화',
           date: new Date(),
           payCategory: '카드',
         },
@@ -170,9 +210,9 @@ const DATAS = [
 ];
 
 const DUMMY = [
-  { month: '1월', expenditure: 100000, duration: '2019.10.01 - 2019.10.07' },
-  { month: '2월', expenditure: 200000, duration: '2019.11.01 - 2019.11.07' },
-  { month: '3월', expenditure: 300000, duration: '2019.12.01 - 2019.12.07' },
+  { month: '9월', expenditure: 65000, duration: '2019.09.01 - 2019.09.07' },
+  { month: '10월', expenditure: 110000, duration: '2019.10.01 - 2019.10.30' },
+  { month: '11월', expenditure: 95000, duration: '2019.11.11 - 2019.11.17' },
 ];
 
 const contentContainerStyle = {

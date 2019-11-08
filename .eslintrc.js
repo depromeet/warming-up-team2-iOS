@@ -1,9 +1,14 @@
 module.exports = {
+  env: {
+    browser: true,
+    commonjs: true,
+  },
   root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   extends: ['airbnb', 'prettier'],
   rules: {
+    'react/jsx-props-no-spreading': 'off',
     'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': 'off',
     'react/jsx-closing-tag-location': 'off',

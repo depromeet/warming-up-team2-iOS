@@ -28,12 +28,12 @@ const InnerView = styled.View`
   z-index: -100;
 `;
 
-const BubbleView = styled(AniComponent)<{ right: number }>`
+const BubbleView = styled(AniComponent)`
   background-color: #ff7443;
   border-radius: 35px;
   padding: 4px 5px;
   position: absolute;
-  right: ${({ right }) => right};
+  right: 15%;
   justify-content: center;
   align-items: center;
 `;
@@ -68,25 +68,23 @@ const Title = styled(Text)<{ bold?: boolean }>`
 
 const HorizontalAnimatedBar: React.FC<Props> = ({ expeditures }) => {
   const [progress, setProgress] = React.useState(0);
-  const [bubbleVisible, setBubbleVisigle] = React.useState(false);
 
   React.useEffect(() => {
     setProgress(1);
-    setTimeout(() => {
-      setBubbleVisigle(true);
-    }, 1500);
   }, []);
 
   return (
     <Wrap>
-      <BubbleView right={80} animation="fadeIn" delay={500}>
+      <BubbleView animation="fadeIn" delay={800}>
         <BubbleText>-100,000원</BubbleText>
         <Triangle />
       </BubbleView>
 
       {expeditures.map((exp: number, index: number) => (
         <HorizontalWrap key={`$육아용품 - ${exp}`}>
-          <Title>육아용품</Title>
+          <Title bold={index === 0}>
+            {index === 0 ? '육아용품' : index === 1 ? '여가' : '문화'}
+          </Title>
           <InnerView>
             <Bar
               useNativeDriver

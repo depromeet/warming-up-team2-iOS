@@ -7,7 +7,7 @@ import Text from './Text';
 interface Props {
   tags: string[];
   onSelect: (selected: string) => void;
-  multiple?: boolean;
+  selected: string;
 }
 
 const TagView = styled.View`
@@ -33,20 +33,8 @@ const TagText = styled(Text)`
   font-weight: bold;
 `;
 
-const TagViews: React.FC<Props> = ({ tags, onSelect, multiple = true }) => {
-  const [selected, setSelected] = React.useState<string[]>(['']);
-
+const TagViews: React.FC<Props> = ({ tags, onSelect, selected }) => {
   const onPressItem = (tag: string) => {
-    if (multiple) {
-      const selectedIn = [...selected];
-      selectedIn.push(tag);
-      setSelected(selectedIn);
-      onSelect(selectedIn);
-
-      return;
-    }
-
-    setSelected([tag]);
     onSelect(tag);
   };
 
@@ -56,7 +44,7 @@ const TagViews: React.FC<Props> = ({ tags, onSelect, multiple = true }) => {
         <Tag
           key={tag}
           onPress={() => onPressItem(tag)}
-          isSelected={selected.includes(tag)}
+          isSelected={selected === tag}
         >
           <TagText>{tag}</TagText>
         </Tag>

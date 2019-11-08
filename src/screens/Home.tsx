@@ -6,6 +6,7 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { TabView, SceneMap, NavigationState } from 'react-native-tab-view';
 import { useDispatch, useSelector } from 'react-redux';
 
+import * as ExpenditureActions from 'store/expenditure/actions';
 import * as AppActions from 'store/app/actions';
 import * as NavigationService from 'libs/NavigationService';
 import { RootReducerType } from 'store';
@@ -67,8 +68,6 @@ export const Home: NavigationStackScreenComponent = () => {
   const { userInfo } = useSelector<RootReducerType, AuthStateType>(
     state => state.authState,
   );
-  const [graphViewVisited, setGraphViewVisited] = React.useState(false);
-  const [scrollEnabled, setScrollEnabled] = React.useState(true);
   const [currentTabIndex, setCurrentTabIndex] = React.useState(0);
   const routes = [
     { key: 'feed', title: '피드' },
@@ -76,16 +75,13 @@ export const Home: NavigationStackScreenComponent = () => {
     { key: 'myPage', title: '마이페이지' },
   ];
 
+  React.useEffect(() => {
+    dispatch(ExpenditureActions.fetchExpenditures());
+    dispatch(ExpenditureActions.fetchExpendituresGraph());
+    dispatch(ExpenditureActions.fetchExpendituresCategory());
+  }, []);
+
   const onChangeTabIndex = (index: number) => {
-    if (index === 2 && !graphViewVisited) {
-      setScrollEnabled(false);
-
-      setTimeout(() => {
-        setScrollEnabled(true);
-        setGraphViewVisited(true);
-      }, 3000);
-    }
-
     dispatch(AppActions.setCurrentIndex(index));
     setCurrentTabIndex(index);
   };
@@ -173,12 +169,11 @@ export const Home: NavigationStackScreenComponent = () => {
           accountBook: AccountBook,
           myPage: Mypage,
         })}
-        onIndexChange={index => onChangeTabIndex(index)}
+        onIndexChange={onChangeTabIndex}
         initialLayout={{ width: DEVICE_WIDTH }}
         renderTabBar={renderTabBar}
         swipeVelocityImpact={1}
         springVelocityScale={4}
-        swipeEnabled={scrollEnabled}
       />
       <WriteButton onPress={onPressWrite}>
         <EditIcon />

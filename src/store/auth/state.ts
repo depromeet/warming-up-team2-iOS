@@ -14,6 +14,7 @@ const initialState: AuthStateType = {
     name: '',
     profileImageUrl: null,
     status: 'SOLO',
+    spouseName: '',
   },
 };
 

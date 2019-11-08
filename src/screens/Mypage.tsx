@@ -112,7 +112,7 @@ const SimpleConnectText = styled(Text)`
 `;
 
 const StyledSingleTextInput = styled(SingleLineTextInput)`
-  width: ${DEVICE_WIDTH * 0.48}px;
+  width: ${DEVICE_WIDTH * 0.44}px;
 `;
 
 const MyPageGIF = styled.Image.attrs({
@@ -125,8 +125,12 @@ const MyPageGIF = styled.Image.attrs({
 
 const Mypage: React.FC = () => {
   const zeroDatas = [0, 0, 0, 0, 0, 0];
-  const newDatas = [80, 54, 89, 90, 0, 0];
-  const expeditures = [200, 150, 90];
+  const newDatas = [80, 54, 89, 90, 40, 0];
+  const expeditures = [
+    DEVICE_WIDTH - 190,
+    DEVICE_WIDTH - 270,
+    DEVICE_WIDTH - 310,
+  ];
   const right = new Animated.Value(0);
   const { userInfo } = useSelector<RootReducerType, AuthStateType>(
     state => state.authState,
@@ -150,7 +154,7 @@ const Mypage: React.FC = () => {
   }>({
     stroke: 'white',
     position: 'relative',
-    height: 0.5,
+    height: 0.4,
   });
 
   React.useEffect(() => {
@@ -168,9 +172,6 @@ const Mypage: React.FC = () => {
       });
 
       setLineDatas(newDatas);
-      setTimeout(() => {
-        setHorizintalGraphVisible(true);
-      }, 1500);
     }
   }, [datas]);
 
@@ -212,7 +213,7 @@ const Mypage: React.FC = () => {
         <TitleView>
           <ColView>
             <Title>
-              <BoldTitle>여해주</BoldTitle>님과
+              <BoldTitle>{userInfo.spouseName}</BoldTitle>님과
             </Title>
             <Title>계정연동 중입니다</Title>
           </ColView>
@@ -249,10 +250,10 @@ const Mypage: React.FC = () => {
   };
 
   return (
-    <Wrap>
+    <Wrap onScrollBeginDrag={() => setHorizintalGraphVisible(true)}>
       {renderHeader()}
       <ColView>
-        <Title>한달 평균 소비</Title>
+        <Title>한달 평균 소비</Title>
         <RowView>
           <BoldTitle>100,000</BoldTitle>
           <GrayText>(6개월 기준)</GrayText>

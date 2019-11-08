@@ -1,7 +1,7 @@
+import * as Animatable from 'react-native-animatable';
 import React from 'react';
 import styled from 'styled-components/native';
 import _compact from 'lodash/compact';
-import { Animated } from 'react-native';
 import { BarChart, XAxis, LineChart } from 'react-native-svg-charts';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 
@@ -21,7 +21,7 @@ const Wrap = styled.View`
   margin-bottom: 50px;
 `;
 
-const AvgLine = styled(Animated.View)`
+const AvgLine = styled(Animatable.View)`
   border-style: dotted;
   border-width: 1px;
   border-color: #fe5b22;
@@ -29,6 +29,7 @@ const AvgLine = styled(Animated.View)`
   top: 70px;
   left: 20px;
   right: 20px;
+  width: ${DEVICE_WIDTH - 40};
 `;
 
 const AnimatedGraph: React.FC<Props> = ({
@@ -36,35 +37,9 @@ const AnimatedGraph: React.FC<Props> = ({
   lineDatas,
   lineGraphInfo,
 }) => {
-  const width = new Animated.Value(0);
+  const handleViewRef = React.useRef<any>(null);
+  const handleAvgViewRef = React.useRef<any>(null);
   const [avgVisible, setAvgVisible] = React.useState(false);
-  const opacity = new Animated.Value(0);
-
-  React.useEffect(() => {
-    if (_compact(lineDatas) && _compact(lineDatas).length > 0) {
-      setAvgVisible(true);
-      Animated.timing(width, {
-        toValue: DEVICE_WIDTH - 40,
-        duration: 1500,
-      }).start();
-    }
-  }, [lineDatas]);
-
-  React.useEffect(() => {
-    if (avgVisible) {
-      Animated.timing(width, {
-        toValue: DEVICE_WIDTH - 40,
-        duration: 1500,
-      }).start();
-    }
-    if (avgVisible) {
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 1500,
-      }).start();
-    }
-  }, [avgVisible]);
-
   const Gradient = () => (
     <Defs key="gradient">
       <LinearGradient id="gradient" x1="0%" x2="0%" y2="100%">
@@ -73,6 +48,17 @@ const AnimatedGraph: React.FC<Props> = ({
       </LinearGradient>
     </Defs>
   );
+
+  React.useEffect(() => {
+    if (_compact(lineDatas) && _compact(lineDatas).length > 0) {
+      if (handleViewRef.current) {
+        handleViewRef.current.fadeIn();
+      }
+      setTimeout(() => {
+        setAvgVisible(true);
+      }, 1400);
+    }
+  }, [lineDatas]);
 
   return (
     <Wrap>
@@ -96,8 +82,10 @@ const AnimatedGraph: React.FC<Props> = ({
         contentInset={{ left: 17, right: 17 }}
         svg={{ fontSize: 12, fill: '#454545' }}
       />
-
-      <Animated.View style={{ opacity, position: lineGraphInfo.position }}>
+      <Animatable.View
+        ref={handleViewRef}
+        style={{ position: lineGraphInfo.position }}
+      >
         <LineChart
           style={{
             height: lineGraphInfo.height,
@@ -108,9 +96,8 @@ const AnimatedGraph: React.FC<Props> = ({
           svg={{ stroke: lineGraphInfo.stroke }}
           contentInset={{ top: 20, bottom: 20, left: 8, right: 8 }}
         />
-      </Animated.View>
-
-      {avgVisible && <AvgLine style={{ width }} />}
+      </Animatable.View>
+      {avgVisible && <AvgLine ref={handleAvgViewRef} animation="fadeInLeft" />}
     </Wrap>
   );
 };

@@ -16,12 +16,13 @@ export interface ActionType extends AnyAction {
 }
 
 export interface ExpenditureWriteType {
-  amountOfMoney: number;
+  amountOfMoney: number | string;
   category: string;
   description: string;
   title: string;
   expendedAt: string;
   paymentMethod: string;
+  imageUrl: string;
 }
 
 export interface getMeType {
@@ -31,4 +32,17 @@ export interface getMeType {
   profileImageUrl: string | null;
   spouseName: string;
   status: 'SOLO' | 'COUPLE';
+}
+
+export interface ExpenditureResultType {
+  amountOfMoney: number;
+  createdAt: string;
+  description: string;
+  expendedAt: string;
+  id: number;
+  imageUrl: string | null;
+  paymentMethod: 'CARD' | 'CASH';
+  title: string;
+  updatedAt: string;
+  member: getMeType;
 }

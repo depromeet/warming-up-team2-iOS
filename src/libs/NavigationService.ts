@@ -25,6 +25,11 @@ export function navigate(routeName: ScreenName, params?: NavigationParams) {
   dispatch(action);
 }
 
+export function popToPop() {
+  const action = StackActions.popToTop();
+  dispatch(action);
+}
+
 export function push(routeName: ScreenName, params?: NavigationParams) {
   const action = StackActions.push({
     routeName,

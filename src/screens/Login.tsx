@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import KakaoLogins, { ITokenInfo } from '@react-native-seoul/kakao-login';
 import styled from 'styled-components/native';
 import { getItem, SKIP_REGIST_CODE } from 'libs/storage';
@@ -8,9 +8,11 @@ import { getItem, SKIP_REGIST_CODE } from 'libs/storage';
 import * as AuthActions from 'store/auth/actions';
 import * as NavigationService from 'libs/NavigationService';
 import colors from 'libs/colors';
-import { ScreenWrap, Touchable } from 'components';
+import { ScreenWrap, Touchable, LoadingCover } from 'components';
 import { IMG_LOGIN, IMG_BT_LOGIN, IMG_BG_CHA } from 'libs/icons';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
+import { RootReducerType } from 'store';
+import { AuthStateType } from 'store/auth/state';
 
 const IMAGE_HEIGHT = DEVICE_WIDTH * 0.5;
 
@@ -44,21 +46,30 @@ const CenterView = styled.View`
   margin-bottom: 30px;
 `;
 
+type Dispatch = (param: any) => Promise<string>;
+
 const Login: NavigationStackScreenComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
+  const { userInfo } = useSelector<RootReducerType, AuthStateType>(
+    state => state.authState,
+  );
+  const [loading, setLoading] = React.useState(false);
   const onPressLogin = () => {
+    setLoading(true);
     KakaoLogins.login(async (err?: Error, result?: ITokenInfo) => {
       if (err) {
         console.log('login error', err);
+        setLoading(false);
         return;
       }
       if (result) {
         const token = await dispatch(
           AuthActions.requestLogin(result.accessToken),
         );
+        const alreadyConnected = userInfo.status === 'COUPLE';
         const skip = await getItem(SKIP_REGIST_CODE);
         if (token) {
-          if (skip === 'true') {
+          if (skip === 'true' || alreadyConnected) {
             NavigationService.replace('Home');
             return;
           }
@@ -69,7 +80,7 @@ const Login: NavigationStackScreenComponent = () => {
   };
 
   return (
-    <ScreenWrap forceInset={{ bottom: 'never' }}>
+    <ScreenWrap forceInset={{ bottom: 'never', top: 'never' }}>
       <Wrap>
         <CenterView>
           <LoginCenter />
@@ -79,6 +90,7 @@ const Login: NavigationStackScreenComponent = () => {
         </CenterView>
       </Wrap>
       <BGImage />
+      {loading && <LoadingCover />}
     </ScreenWrap>
   );
 };

@@ -13,7 +13,7 @@ import _isEmpty from 'lodash/isEmpty';
 import * as ExpenditureActions from 'store/expenditure/actions';
 import * as NavigationService from 'libs/NavigationService';
 import colors from 'libs/colors';
-import { formatDates, formatDatesDash } from 'libs/dateUtils';
+import { formatDates } from 'libs/dateUtils';
 import {
   ScreenWrap,
   Text,
@@ -96,12 +96,18 @@ const StyledTextInput = styled.TextInput<{ isFocused: boolean }>`
 const FirstStepWriting: NavigationStackScreenComponent = () => {
   const timePickerTextInput = React.useRef<TextInput>(null);
   const [dateTimeFocused, setDateTimeFocused] = React.useState(false);
-  const [uploadTime, setUploadTime] = React.useState(new Date());
+  const [currentDate, setCurrentDate] = React.useState(new Date());
   const { register, setValue, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const { writingExpenditure } = useSelector<RootReducerType, ExpenditureType>(
     state => state.expenditureState,
   );
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(ExpenditureActions.resetExpenditureInfo());
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!_isEmpty(errors)) {
@@ -136,12 +142,9 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
   const onDateChange = (event: AndroidEvent, date?: Date) => {
     if (date) {
       dispatch(
-        ExpenditureActions.setExpenditureInfo(
-          'expendedAt',
-          formatDatesDash(date),
-        ),
+        ExpenditureActions.setExpenditureInfo('expendedAt', formatDates(date)),
       );
-      setUploadTime(date);
+      setCurrentDate(date);
     }
   };
 
@@ -154,7 +157,7 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
 
   const getLocaleValue = () => {
     const value = parseInt(
-      writingExpenditure.amountOfMoney,
+      `${writingExpenditure.amountOfMoney}`,
       10,
     ).toLocaleString();
     if (value === 'NaN') {
@@ -176,6 +179,7 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
             tailText="에 지출"
             returnKeyType="done"
             onChangeText={onChagneText('title')}
+            value={writingExpenditure.title}
           />
         </TextView>
         <TextView>
@@ -192,11 +196,10 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
         </TextView>
         <TextView>
           <RowView>
-            <TitieText>날짜(선택)</TitieText>
-            <SubText>미수정시 오늘 날짜로 등록됩니다</SubText>
+            <TitieText>날짜</TitieText>
           </RowView>
           <StyledTextInput
-            value={uploadTime ? formatDates(uploadTime) : ''}
+            value={writingExpenditure.expendedAt}
             placeholder="2019년 00월 00일"
             onFocus={() => onFocusDateTime(true)}
             isFocused={dateTimeFocused}
@@ -205,11 +208,10 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
         </TextView>
         <TextView>
           <RowView>
-            <TitieText>결제수단(선택)</TitieText>
-            <SubText>미선택시 미등록으로 기록됩니다</SubText>
+            <TitieText>결제수단</TitieText>
           </RowView>
           <TagViews
-            multiple={false}
+            selected={writingExpenditure.paymentMethod}
             tags={['카드', '현금']}
             onSelect={selected => {
               dispatch(
@@ -241,11 +243,12 @@ const FirstStepWriting: NavigationStackScreenComponent = () => {
             </Button>
           </ButtonsView>
           <DateTimePicker
-            value={uploadTime || new Date()}
+            value={currentDate}
             mode="date"
             locale="ko"
             minuteInterval={30}
             onChange={onDateChange}
+            maximumDate={new Date()}
           />
         </ModalContainer>
       </Modal>

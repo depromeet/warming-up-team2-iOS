@@ -8,7 +8,13 @@ import * as AuthActions from 'store/auth/actions';
 import * as NavigationService from 'libs/NavigationService';
 import { setItem, SKIP_REGIST_CODE } from 'libs/storage';
 import colors from 'libs/colors';
-import { ScreenWrap, Text, MainButton, SingleLineTextInput } from 'components';
+import {
+  ScreenWrap,
+  Text,
+  MainButton,
+  SingleLineTextInput,
+  LoadingCover,
+} from 'components';
 import { IMG_CHA_3, IMG_BG_CHA } from 'libs/icons';
 import { DEVICE_WIDTH } from 'libs/styleUtils';
 import { RootReducerType } from 'store';
@@ -76,6 +82,7 @@ const ButtonsView = styled.View`
 
 const RegistCode: NavigationStackScreenComponent = () => {
   const [spouseCode, setSpouseCode] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
   const { userInfo } = useSelector<RootReducerType, AuthStateType>(
     state => state.authState,
   );
@@ -88,11 +95,13 @@ const RegistCode: NavigationStackScreenComponent = () => {
     setSpouseCode(text);
   };
   const onPressDone = async () => {
+    setLoading(true);
     const result = await dispatch(AuthActions.requestConnect(spouseCode));
     if (result) {
       setItem(SKIP_REGIST_CODE, 'true');
       NavigationService.navigate('Home');
     }
+    setLoading(false);
   };
 
   return (
@@ -140,6 +149,7 @@ const RegistCode: NavigationStackScreenComponent = () => {
         </Wrap>
       </KeyboardAwareScrollView>
       <BGImage />
+      {loading && <LoadingCover />}
     </ScreenWrap>
   );
 };
